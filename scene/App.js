@@ -34,7 +34,7 @@ function SimpleApp() {
           initialParams={{ header: null }}
         />
         <Stack.Screen
-          name="register"
+          name="Register"
           component={RegisterScene}
           options={{ headerTitle: <Text>注册</Text> }}
         />

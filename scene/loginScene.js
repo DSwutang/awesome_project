@@ -88,12 +88,13 @@ export default class LoginScene extends Component {
                     />
                 </View>
                 <TouchableOpacity
+                    onPress={this.login}
                     style={styles.button}>
                     <Text
                         style={styles.btText}>登录</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={this.login}
+                    onPress={this.register}
                     style={styles.button}>
                     <Text
                         style={styles.btText}>注册</Text>
