@@ -11,5 +11,5 @@ COPY package-lock.json $FRONTEND
 RUN npm install
 
 COPY . $FRONTEND
-RUN npm run build
+RUN yarn android
 
