@@ -8,6 +8,22 @@ import {
     Alert
 } from 'react-native';
 
+function RegisterFetch(username, password){
+    fetch('http://api/mobile/admin/regis',{
+        method = 'POST',
+        body: JSON.stringify({
+            username: 'user_name',
+            password: 'user_pwd'
+        })
+    }).then((response) => response.json())
+      .then((jsondata) => {
+          console.log(jsondata)
+      })
+      .catch((error) => {
+          console.warn(error)
+      });
+}
+
 export default class RegisterScene extends Component {
     username = '';  //保存用户名
     password = '';  //保存密码
@@ -45,7 +61,7 @@ export default class RegisterScene extends Component {
     register = () => {
         if (this.username != '' && this.password != '') {
             if (this.username != 'Admin') {
-                if (this.password === this.confirmPassword) {
+                if (this.password === this.confirmPassword && RegisterFetch(this.username, this.password)) {
                     const { goBack } = this.props.navigation;  //获取navigation的goBack方法
 
                     Alert.alert("注册成功","返回登陆",[{text: '确定', onPress: () => { goBack(); }}])  //给弹出的提示框添加事件
