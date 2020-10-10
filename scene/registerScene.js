@@ -9,15 +9,18 @@ import {
 } from 'react-native';
 
 function RegisterFetch(username, password){
-    fetch('http://api/mobile/admin/regis',{
-        method = 'POST',
+    return fetch('https://backend-vegeteam.app.secoder.net/api/mobile/admin/regis/',{
+        method : 'POST',
         body: JSON.stringify({
-            username: 'user_name',
-            password: 'user_pwd'
+            "user_name": username,
+            "user_pwd": password
         })
     }).then((response) => response.json())
-      .then((jsondata) => {
-          console.log(jsondata)
+      .then((data) => {
+            if(data["code"] == 200)
+                return 1;
+            else
+                return 0;
       })
       .catch((error) => {
           console.warn(error)
@@ -34,7 +37,7 @@ export default class RegisterScene extends Component {
      * @param  {[type]} newUsername [输入的用户名]
      */
     onUsernameChanged = (newUsername) => {
-        console.log(newUsername);//运行后可以在输入框随意输入内容并且查看log验证！
+        //console.log(newUsername);//运行后可以在输入框随意输入内容并且查看log验证！
         this.username = newUsername;
     };
 
@@ -43,7 +46,7 @@ export default class RegisterScene extends Component {
      * @param  {[type]} newUsername [输入的密码]
      */
     onPasswordChanged = (newPassword) => {
-        console.log(newPassword);//运行后可以在输入框随意输入内容并且查看log验证！
+        //console.log(newPassword);//运行后可以在输入框随意输入内容并且查看log验证！
         this.password = newPassword;
     };
 
@@ -61,10 +64,13 @@ export default class RegisterScene extends Component {
     register = () => {
         if (this.username != '' && this.password != '') {
             if (this.username != 'Admin') {
-                if (this.password === this.confirmPassword && RegisterFetch(this.username, this.password)) {
-                    const { goBack } = this.props.navigation;  //获取navigation的goBack方法
-
-                    Alert.alert("注册成功","返回登陆",[{text: '确定', onPress: () => { goBack(); }}])  //给弹出的提示框添加事件
+                if (this.password === this.confirmPassword) {
+                    if (RegisterFetch(this.username, this.password)){
+                        const { goBack } = this.props.navigation;  //获取navigation的goBack方法
+                        Alert.alert("注册成功","返回登陆",[{text: '确定', onPress: () => { goBack(); }}])  //给弹出的提示框添加事件
+                    } else {
+                        Alert.alert("注册失败", "服务器连接失败")
+                    }
                 } else {
                     Alert.alert("注册失败", "密码与确认密码不同");
                 }
