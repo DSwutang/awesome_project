@@ -23,7 +23,7 @@
     "jest": "^26.5.2",
     "react": "16.13.1",
     "react-native": "0.63.3",
-    "react-native-gesture-handler": "^1.0.17",
+    "react-native-gesture-handler": "^1.8.0",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
@@ -45,6 +45,13 @@
     "react-test-renderer": "16.13.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "<rootDir>/jest/setup.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/.assetstransformer.js",
+      "\\.(css|less)$": "<rootDir>/.assetstransformer.js"
+    }
   }
 }
