@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -11,6 +11,7 @@ import {
 export default class LoginScene extends Component {
   username = ''; //保存用户名
   password = ''; //保存密码
+  token = '';
 
   blurTextInput = () => {
     this.refs.username.blur();
@@ -38,12 +39,14 @@ export default class LoginScene extends Component {
    * 登陆按钮，点击时验证输入的用户名和密码是否正确，正确时进入主页面，否则弹出提示
    */
   login = () => {
-    if (this.username === 'Admin' && this.password === '123') {
+    if (this.username === '123' && this.password === '123') {
       this.refs.username.blur();
       this.refs.password.blur();
-      const {navigate} = this.props.navigation; //获取navigation的navigate方法
+      const { navigate } = this.props.navigation; //获取navigation的navigate方法
       navigate('Home'); //跳转到注册过的Home界面
     } else {
+      console.log(this.username);
+      console.log(this.password);
       Alert.alert('登陆失败', '用户名或密码不正确'); //弹出提示框
     }
   };
@@ -52,7 +55,7 @@ export default class LoginScene extends Component {
    * 注册按钮，点击进入注册界面
    */
   register = () => {
-    const {navigate} = this.props.navigation; //获取navigation的navigate方法
+    const { navigate } = this.props.navigation; //获取navigation的navigate方法
     navigate('Register'); //跳转到注册过的Register界面
   };
   render() {
@@ -74,7 +77,7 @@ export default class LoginScene extends Component {
         </View>
         <View style={styles.inputBox}>
           <TextInput
-            onChangeText={this.onUsernameChanged} //添加值改变事件
+            onChangeText={this.onPasswordChanged} //添加值改变事件
             style={styles.input}
             autoCapitalize="none" //设置首字母不自动大写
             underlineColorAndroid={'transparent'} //将下划线颜色改为透明
