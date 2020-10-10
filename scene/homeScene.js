@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomNavigator} from '@react-navigation/bottom-tabs';
 import {Text, View, StyleSheet, Button} from 'react-native';
 
 export default class HomeScene extends Component {
