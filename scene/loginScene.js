@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
@@ -42,7 +42,7 @@ export default class LoginScene extends Component {
     if (this.username === '123' && this.password === '123') {
       this.refs.username.blur();
       this.refs.password.blur();
-      const { navigate } = this.props.navigation; //获取navigation的navigate方法
+      const {navigate} = this.props.navigation; //获取navigation的navigate方法
       navigate('Home'); //跳转到注册过的Home界面
     } else {
       console.log(this.username);
@@ -55,7 +55,7 @@ export default class LoginScene extends Component {
    * 注册按钮，点击进入注册界面
    */
   register = () => {
-    const { navigate } = this.props.navigation; //获取navigation的navigate方法
+    const {navigate} = this.props.navigation; //获取navigation的navigate方法
     navigate('Register'); //跳转到注册过的Register界面
   };
   render() {
