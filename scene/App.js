@@ -5,9 +5,9 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 //引入三个界面文件，并设置引入的类
 import HomeScene from './homeScene';
@@ -21,22 +21,21 @@ function SimpleApp() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Login"
-        screenOptions={{ gestureEnabled: true }}
-      >
+        screenOptions={{gestureEnabled: true}}>
         <Stack.Screen
           name="Login"
           component={LoginScene}
-          options={{ headerTitle: <Text>登陆</Text> }}
+          options={{headerTitle: <Text>登陆</Text>}}
         />
         <Stack.Screen
           name="Home"
           component={HomeScene}
-          initialParams={{ header: null }}
+          initialParams={{header: null}}
         />
         <Stack.Screen
           name="Register"
           component={RegisterScene}
-          options={{ headerTitle: <Text>注册</Text> }}
+          options={{headerTitle: <Text>注册</Text>}}
         />
       </Stack.Navigator>
     </NavigationContainer>

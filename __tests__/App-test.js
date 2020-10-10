@@ -1,6 +1,1 @@
-
-
-test('renders correctly', function(){
-  
-});
-
+test('renders correctly', function () {});
