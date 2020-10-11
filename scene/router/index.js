@@ -2,6 +2,7 @@ import PhotoScene from '../photoScene';
 import DeviceManagerScene from '../deviceManagerScene';
 import PersonManagerScene from '../personManagerScene';
 import SelfInfoScene from '../selfInfo';
+import {exp} from 'react-native/Libraries/Animated/src/Easing';
 const routes = [
   {
     name: 'photo',
@@ -31,4 +32,8 @@ const routes = [
     },
     component: SelfInfoScene,
   },
-]
+];
+
+export default {
+  routes,
+};
