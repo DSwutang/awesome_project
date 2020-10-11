@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Button} from 'react-native';
 
-export default class PhotoScene extends Component {
+export default class PersonManagerScene extends Component {
   backToLogin = () => {
     const {goBack} = this.props.navigation; //获取navigation的goBack方法
     goBack(); //返回上一界面
@@ -10,7 +10,7 @@ export default class PhotoScene extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.content}>登录成功!这是主页!</Text>
+        <Text style={styles.content}>登录成功!这是主页3!</Text>
         <Button
           onPress={this.backToLogin}
           style={styles.button}

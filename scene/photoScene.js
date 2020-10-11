@@ -10,7 +10,7 @@ export default class PhotoScene extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.content}>登录成功!这是主页!</Text>
+        <Text style={styles.content}>登录成功!这是主页1!</Text>
         <Button
           onPress={this.backToLogin}
           style={styles.button}
