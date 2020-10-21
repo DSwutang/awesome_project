@@ -8,6 +8,32 @@ import {
   Alert,
 } from 'react-native';
 
+function LoginFetch(username, password, token) {
+  return fetch(
+    'https://backend-vegeteam.app.secoder.net/api/mobile/admin/login/',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        user_name: username,
+        user_pwd: password,
+      }),
+    },
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      token = data.token;
+      console.log(token);
+      if (data.code === 200) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
+}
+
 export default class LoginScene extends Component {
   username = ''; //保存用户名
   password = ''; //保存密码
@@ -23,7 +49,7 @@ export default class LoginScene extends Component {
    * @param  {[type]} newUsername [输入的用户名]
    */
   onUsernameChanged = (newUsername) => {
-    console.log(newUsername); //运行后可以在输入框随意输入内容并且查看log验证！
+    // console.log(newUsername); //运行后可以在输入框随意输入内容并且查看log验证！
     this.username = newUsername;
   };
 
@@ -32,23 +58,25 @@ export default class LoginScene extends Component {
    * @param  {[type]} newUsername [输入的密码]
    */
   onPasswordChanged = (newPassword) => {
-    console.log(newPassword); //运行后可以在输入框随意输入内容并且查看log验证！
+    // console.log(newPassword); //运行后可以在输入框随意输入内容并且查看log验证！
     this.password = newPassword;
   };
   /**
    * 登陆按钮，点击时验证输入的用户名和密码是否正确，正确时进入主页面，否则弹出提示
    */
   login = () => {
-    if (this.username === '123' && this.password === '123') {
-      this.refs.username.blur();
-      this.refs.password.blur();
-      const {navigate} = this.props.navigation; //获取navigation的navigate方法
-      navigate('Home'); //跳转到注册过的Home界面
-    } else {
-      console.log(this.username);
-      console.log(this.password);
-      Alert.alert('登陆失败', '用户名或密码不正确'); //弹出提示框
-    }
+    LoginFetch(this.username, this.password, this.token).then((val) => {
+      if (val === 1) {
+        this.refs.username.blur();
+        this.refs.password.blur();
+        console.log(this.token);
+        const {navigate} = this.props.navigation; //获取navigation的navigate方法
+        navigate('Home'); //跳转到注册过的Home界面
+      } else {
+        this.password = '';
+        Alert.alert('登陆失败', '用户名或密码不正确'); //弹出提示框
+      }
+    });
   };
 
   /**

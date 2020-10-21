@@ -70,19 +70,21 @@ export default class RegisterScene extends Component {
   register = () => {
     if (this.username !== '' && this.password !== '') {
       if (this.password === this.confirmPassword) {
-        if (RegisterFetch(this.username, this.password)) {
-          const {goBack} = this.props.navigation; //获取navigation的goBack方法
-          Alert.alert('注册成功', '返回登陆', [
-            {
-              text: '确定',
-              onPress: () => {
-                goBack();
+        RegisterFetch(this.username, this.password).then((val) => {
+          if (val === 1) {
+            const {goBack} = this.props.navigation; //获取navigation的goBack方法
+            Alert.alert('注册成功', '返回登陆', [
+              {
+                text: '确定',
+                onPress: () => {
+                  goBack();
+                },
               },
-            },
-          ]); //给弹出的提示框添加事件
-        } else {
-          Alert.alert('注册失败', '服务器连接失败');
-        }
+            ]); //给弹出的提示框添加事件
+          } else {
+            Alert.alert('注册失败', '用户名及密码需长于6位or用户名重复！');
+          }
+        });
       } else {
         Alert.alert('注册失败', '密码与确认密码不同');
       }
