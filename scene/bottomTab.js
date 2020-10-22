@@ -5,18 +5,38 @@ import PhotoScene from './photoScene';
 import DeviceManagerScene from './deviceManagerScene';
 import PersonManagerScene from './personManagerScene';
 import SelfInfoScene from './selfInfo';
+import {Component} from 'react';
 
 function MyTabBar({state, descriptors, navigation}) {}
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="photo" component={PhotoScene} />
-      <Tab.Screen name="device" component={DeviceManagerScene} />
-      <Tab.Screen name="person" component={PersonManagerScene} />
-      <Tab.Screen name="self" component={SelfInfoScene} />
-    </Tab.Navigator>
-  );
+export default class bottomTab extends Component {
+  token = this.props.token;
+  render() {
+    return (
+      <Tab.Navigator initialRouteName="device" backBehavior="none">
+        <Tab.Screen
+          name="photo"
+          component={PhotoScene}
+          initialParams={{token: this.token}}
+        />
+        <Tab.Screen
+          name="device"
+          component={DeviceManagerScene}
+          initialParams={{token: this.token}}
+        />
+        <Tab.Screen
+          name="person"
+          component={PersonManagerScene}
+          initialParams={{token: this.token}}
+        />
+        <Tab.Screen
+          name="self"
+          component={SelfInfoScene}
+          initialParams={{token: this.token}}
+        />
+      </Tab.Navigator>
+    );
+  }
 }

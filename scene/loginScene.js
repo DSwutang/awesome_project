@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native';
 
-function LoginFetch(username, password, token) {
+function LoginFetch(username, password) {
   return fetch(
     'https://backend-vegeteam.app.secoder.net/api/mobile/admin/login/',
     {
@@ -21,12 +21,10 @@ function LoginFetch(username, password, token) {
   )
     .then((response) => response.json())
     .then((data) => {
-      token = data.token;
-      console.log(token);
       if (data.code === 200) {
-        return 1;
+        return {token: data.token, val: 1};
       } else {
-        return 0;
+        return {token: data.token, val: 0};
       }
     })
     .catch((error) => {
@@ -65,13 +63,15 @@ export default class LoginScene extends Component {
    * 登陆按钮，点击时验证输入的用户名和密码是否正确，正确时进入主页面，否则弹出提示
    */
   login = () => {
-    LoginFetch(this.username, this.password, this.token).then((val) => {
-      if (val === 1) {
+    LoginFetch(this.username, this.password).then((data) => {
+      if (data.val === 1) {
         this.refs.username.blur();
         this.refs.password.blur();
+        this.token = data.token;
         console.log(this.token);
+        console.log('jump');
         const {navigate} = this.props.navigation; //获取navigation的navigate方法
-        navigate('Home'); //跳转到注册过的Home界面
+        navigate('Home', {token: this.token}); //跳转到注册过的Home界面
       } else {
         this.password = '';
         Alert.alert('登陆失败', '用户名或密码不正确'); //弹出提示框

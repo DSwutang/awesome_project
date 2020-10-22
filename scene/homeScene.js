@@ -3,8 +3,9 @@ import AppCreateNavigator from './bottomTab';
 import {Text, View, StyleSheet, Button} from 'react-native';
 
 export default class HomeScene extends Component {
+  token = this.props.route.params.token;
   render() {
-    return <AppCreateNavigator />;
+    return <AppCreateNavigator token={this.token} />;
   }
 }
 
