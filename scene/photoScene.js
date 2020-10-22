@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
-// import {Camera} from 'react-native-camera';
+import {Text, View, StyleSheet, Button, TouchableHighlight} from 'react-native';
+import {RNCamera} from 'react-native-camera';
 
 export default class PhotoScene extends Component {
   backToLogin = () => {
@@ -8,32 +8,26 @@ export default class PhotoScene extends Component {
     goBack(); //返回上一界面
   };
 
-  render() {
-    return <Text>OK</Text>;
-    // return (
-    //   <View style={styles.container}>
-    //     <Camera
-    //       ref={(cam) => {
-    //         this.camera = cam;
-    //       }}
-    //       style={styles.preview}
-    //       aspect={Camera.constants.Aspect.fill}>
-    //       <Text style={styles.capture} onPress={this.takePicture.bind(this)}>
-    //         [CAPTURE]
-    //       </Text>
-    //     </Camera>
-    //   </View>
-    // );
+  _takePicture() {
+    this.refs.camera
+      .takePictureAsync()
+      .then((response) => {
+        console.log('response.uri:' + response.uri);
+      })
+      .catch((error) => {
+        console.log('error:' + error);
+      });
   }
 
-  // takePicture() {
-  //   const options = {};
-  //   //options.location = ...
-  //   this.camera
-  //     .capture({metadata: options})
-  //     .then((data) => console.log(data))
-  //     .catch((err) => console.error(err));
-  // }
+  render() {
+    return (
+      <RNCamera ref="camera" style={styles.container}>
+        <TouchableHighlight onPress={this._takePicture.bind(this)}>
+          <Text style={styles.picture}>Take Picture</Text>
+        </TouchableHighlight>
+      </RNCamera>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
