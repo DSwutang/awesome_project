@@ -8,10 +8,20 @@ export default class PhotoScene extends Component {
     goBack(); //返回上一界面
   };
 
+  _switchCamera() {
+    this.setState({
+      cameraType:
+        this.state.cameraType === RNCamera.Constants.Type.back
+          ? RNCamera.Constants.Type.front
+          : RNCamera.Constants.Type.back,
+    });
+  }
+
   _takePicture() {
     this.refs.camera
       .takePictureAsync()
       .then((response) => {
+        console.log('response:' + response);
         console.log('response.uri:' + response.uri);
       })
       .catch((error) => {
@@ -22,6 +32,9 @@ export default class PhotoScene extends Component {
   render() {
     return (
       <RNCamera ref="camera" style={styles.container}>
+        <TouchableHighlight onPress={this._switchCamera.bind(this)}>
+          <Text style={styles.switch}>Switch Camera</Text>
+        </TouchableHighlight>
         <TouchableHighlight onPress={this._takePicture.bind(this)}>
           <Text style={styles.picture}>Take Picture</Text>
         </TouchableHighlight>
@@ -33,26 +46,20 @@ export default class PhotoScene extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
   },
-  preview: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    flexDirection: 'row',
+  switch: {
+    marginTop: 30,
+    textAlign: 'center',
+    fontSize: 30,
+    color: 'red',
   },
-  toolBar: {
-    width: 200,
-    margin: 40,
-    backgroundColor: '#000000',
-    justifyContent: 'space-between',
-  },
-  button: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40,
+  picture: {
+    marginTop: 30,
+    textAlign: 'center',
+    fontSize: 30,
+    color: 'red',
   },
 });
