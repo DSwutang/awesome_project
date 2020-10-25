@@ -8,6 +8,8 @@ export default class PhotoScene extends Component {
     goBack(); //返回上一界面
   };
 
+  state = {cameraType: RNCamera.Constants.Type.front};
+
   _switchCamera() {
     this.setState({
       cameraType:
@@ -15,6 +17,7 @@ export default class PhotoScene extends Component {
           ? RNCamera.Constants.Type.front
           : RNCamera.Constants.Type.back,
     });
+    console.log(this.state);
   }
 
   _takePicture() {
@@ -31,7 +34,11 @@ export default class PhotoScene extends Component {
 
   render() {
     return (
-      <RNCamera ref="camera" style={styles.container}>
+      <RNCamera
+        ref="camera"
+        style={styles.container}
+        type={this.state.cameraType}
+        autoFocus={RNCamera.Constants.AutoFocus.on}>
         <TouchableHighlight onPress={this._switchCamera.bind(this)}>
           <Text style={styles.switch}>Switch Camera</Text>
         </TouchableHighlight>
