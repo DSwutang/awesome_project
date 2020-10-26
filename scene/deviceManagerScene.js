@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   Text,
   View,
@@ -7,8 +7,8 @@ import {
   StatusBar,
   FlatList,
   SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
-import {TouchableHighlight} from 'react-native-gesture-handler';
 
 const DATA = [
   {
@@ -28,17 +28,21 @@ const DATA = [
     id: 4,
   },
 ];
-
-const Item = ({title}) => (
+const Item = ({name}) => (
   <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{name}</Text>
+    </View>
+    <TouchableOpacity>
+      <View style={styles.cell}>
+        <Text>HERE</Text>
+      </View>
+    </TouchableOpacity>
   </View>
 );
-
 export default class DeviceManagerScene extends Component {
   token = '';
   input_id = '';
-
   backToLogin = () => {
     const {goBack} = this.props.navigation; //获取navigation的goBack方法
     goBack(); //返回上一界面
@@ -72,7 +76,7 @@ export default class DeviceManagerScene extends Component {
     //console.log(this.props.route);
     this.token = this.props.route.params.token;
 
-    const renderItem = ({item}) => <Item title={item.name} />;
+    const renderItem = ({item}) => <Item name={item.name} />;
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -88,15 +92,22 @@ export default class DeviceManagerScene extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    padding: 20,
+  },
+  cell: {
+    width: 80,
+    height: '100%',
+    backgroundColor: '#fefefe',
   },
   item: {
+    flexDirection: 'row',
     backgroundColor: '#f9c2ff',
-    padding: 20,
+    height: 80,
     marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 8,
   },
   title: {
+    textAlignVertical: 'center',
     fontSize: 32,
   },
 });
