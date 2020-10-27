@@ -111,7 +111,7 @@ export default class RegisterScene extends Component {
             autoCapitalize="none" //设置首字母不自动大写
             underlineColorAndroid={'transparent'} //将下划线颜色改为透明
             placeholderTextColor={'#ccc'} //设置占位符颜色
-            placeholder={'用户名'} //设置占位符
+            placeholder={'username'} //设置占位符
           />
         </View>
         <View style={styles.inputBox}>
@@ -123,7 +123,7 @@ export default class RegisterScene extends Component {
             autoCapitalize="none" //设置首字母不自动大写
             underlineColorAndroid={'transparent'} //将下划线颜色改为透明
             placeholderTextColor={'#ccc'} //设置占位符颜色
-            placeholder={'密码'} //设置占位符
+            placeholder={'password'} //设置占位符
           />
         </View>
         <View style={styles.inputBox}>
@@ -135,7 +135,7 @@ export default class RegisterScene extends Component {
             autoCapitalize="none" //设置首字母不自动大写
             underlineColorAndroid={'transparent'} //将下划线颜色改为透明
             placeholderTextColor={'#ccc'} //设置占位符颜色
-            placeholder={'确认密码'} //设置占位符
+            placeholder={'confirm password'} //设置占位符
           />
         </View>
         <TouchableOpacity onPress={this.register} style={styles.button}>

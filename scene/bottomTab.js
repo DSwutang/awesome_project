@@ -17,11 +17,6 @@ export default class bottomTab extends Component {
     return (
       <Tab.Navigator initialRouteName="device" backBehavior="none">
         <Tab.Screen
-          name="photo"
-          component={PhotoScene}
-          initialParams={{token: this.token}}
-        />
-        <Tab.Screen
           name="device"
           component={DeviceManagerScene}
           initialParams={{token: this.token}}

@@ -1,52 +1,69 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Alert,
-  StatusBar,
+  Image,
   FlatList,
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import addUserScene from './addUserScene';
 
 const DATA = [
   {
     name: '东门',
-    id: 1,
+    id: '1',
   },
   {
     name: '南门',
-    id: 2,
+    id: '2',
   },
   {
     name: '西门',
-    id: 3,
+    id: '3',
   },
   {
     name: '北门',
-    id: 4,
+    id: '4',
   },
 ];
-const Item = ({name}) => (
-  <View style={styles.item}>
-    <View style={styles.container}>
-      <Text style={styles.title}>{name}</Text>
-    </View>
-    <TouchableOpacity>
-      <View style={styles.cell}>
-        <Text>HERE</Text>
-      </View>
-    </TouchableOpacity>
-  </View>
-);
 export default class DeviceManagerScene extends Component {
   token = '';
   input_id = '';
-  backToLogin = () => {
-    const {goBack} = this.props.navigation; //获取navigation的goBack方法
-    goBack(); //返回上一界面
+
+  addUser = (deviceID) => {
+    const {navigate} = this.props.navigation;
+    navigate('AddUser', {token: this.token, facility_id: deviceID});
   };
+
+  Item = ({name, id}) => (
+    <View style={styles.item}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{name}</Text>
+      </View>
+      <TouchableOpacity
+        onPress={() => {
+          this.addUser(id);
+        }}>
+        <View style={styles.cell}>
+          <Image
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              width: '80%',
+              height: '80%',
+              marginTop: '10%',
+              marginLeft: '10%',
+            }}
+            resizeMode="center"
+            resizeMethod="resize"
+            source={require('../icon/add.png')}
+          />
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
 
   bind = () => {
     console.log(this.token);
@@ -76,7 +93,7 @@ export default class DeviceManagerScene extends Component {
     //console.log(this.props.route);
     this.token = this.props.route.params.token;
 
-    const renderItem = ({item}) => <Item name={item.name} />;
+    const renderItem = ({item}) => <this.Item name={item.name} id={item.id} />;
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -97,7 +114,6 @@ const styles = StyleSheet.create({
   cell: {
     width: 80,
     height: '100%',
-    backgroundColor: '#fefefe',
   },
   item: {
     flexDirection: 'row',

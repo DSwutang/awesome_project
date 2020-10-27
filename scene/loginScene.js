@@ -6,6 +6,7 @@ import {
   View,
   Text,
   Alert,
+  StatusBar,
 } from 'react-native';
 
 function LoginFetch(username, password) {
@@ -68,8 +69,6 @@ export default class LoginScene extends Component {
         this.refs.username.blur();
         this.refs.password.blur();
         this.token = data.token;
-        console.log(this.token);
-        console.log('jump');
         const {navigate} = this.props.navigation; //获取navigation的navigate方法
         navigate('Home', {token: this.token}); //跳转到注册过的Home界面
       } else {
@@ -99,7 +98,7 @@ export default class LoginScene extends Component {
             autoCapitalize="none" //设置首字母不自动大写
             underlineColorAndroid={'transparent'} //将下划线颜色改为透明
             placeholderTextColor={'#ccc'} //设置占位符颜色
-            placeholder={'用户名'} //设置占位符
+            placeholder={'username'} //设置占位符
             ref="username"
           />
         </View>
@@ -111,7 +110,7 @@ export default class LoginScene extends Component {
             underlineColorAndroid={'transparent'} //将下划线颜色改为透明
             secureTextEntry={true} //设置为密码输入框
             placeholderTextColor={'#ccc'} //设置占位符颜色
-            placeholder={'密码'} //设置占位符
+            placeholder={'password'} //设置占位符
             ref="password"
           />
         </View>
