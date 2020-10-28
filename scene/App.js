@@ -15,6 +15,7 @@ import LoginScene from './loginScene';
 import RegisterScene from './registerScene';
 import AddUserScene from './addUserScene';
 import PhotoScene from './photoScene';
+import QRphoto from './QRphoto';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,7 @@ function SimpleApp() {
           options={{headerTitle: <Text>添加用户</Text>}}
         />
         <Stack.Screen name="photo" component={PhotoScene} />
+        <Stack.Screen name="QR" component={QRphoto} />
       </Stack.Navigator>
     </NavigationContainer>
   );

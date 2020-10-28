@@ -8,8 +8,8 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
+  Button,
 } from 'react-native';
-import addUserScene from './addUserScene';
 
 const DATA = [
   {
@@ -67,6 +67,7 @@ export default class DeviceManagerScene extends Component {
 
   bind = () => {
     console.log(this.token);
+    console.log(this.input_id);
     fetch(
       'https://backend-vegeteam.app.secoder.net/api/mobile/admin/bindfacility/',
       {
@@ -81,12 +82,25 @@ export default class DeviceManagerScene extends Component {
       .then((data) => {
         if (data.code === 200) {
           console.log('绑定成功');
-          Alert.alert('绑定', '绑定成功');
+          Alert.alert('绑定', '成功绑定' + this.input_id + '号设备');
         } else {
           console.log('绑定失败');
           Alert.alert('绑定', '绑定失败');
         }
+      })
+      .catch(() => {
+        console.log('连接失败');
       });
+  };
+
+  onID = (ID) => {
+    this.input_id = ID;
+    this.bind();
+  };
+
+  addDevice = () => {
+    const {navigate} = this.props.navigation; //获取navigation的navigate方法
+    navigate('QR', {onID: this.onID});
   };
 
   render() {
@@ -101,6 +115,9 @@ export default class DeviceManagerScene extends Component {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
+        <TouchableOpacity onPress={this.addDevice} style={styles.button}>
+          <Text style={styles.btText}>添加设备</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -114,6 +131,15 @@ const styles = StyleSheet.create({
   cell: {
     width: 80,
     height: '100%',
+  },
+  button: {
+    height: 50,
+    width: 280,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: '#66f',
+    marginTop: 20,
   },
   item: {
     flexDirection: 'row',

@@ -39,7 +39,7 @@ export default class SelfInfoScene extends Component {
   Photo = () => {
     if (this.photoYES === 1) {
       console.log(this.state.uri);
-      return <Image source={require('../icon/add.png')} />;
+      return <Image source={{uri: this.state.uri + 'OK'}} />;
     } else {
       return <Image source={require('../icon/add.png')} />;
     }
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 40,
     fontSize: 20,
-    color: '#fff', //输入框输入的文本为白色
+    color: '#000', //输入框输入的文本为白色
   },
   inputBox: {
     flexDirection: 'row',
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 50,
     borderRadius: 8,
-    backgroundColor: '#66f',
+    backgroundColor: '#fff',
     marginBottom: 8,
   },
   button: {

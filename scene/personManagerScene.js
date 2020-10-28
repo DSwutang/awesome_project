@@ -1,22 +1,36 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Button,
+} from 'react-native';
 
 export default class PersonManagerScene extends Component {
-  backToLogin = () => {
-    const {goBack} = this.props.navigation; //获取navigation的goBack方法
-    goBack(); //返回上一界面
-  };
+  DATA = [];
+
+  Item = ({name}) => (
+    <View style={styles.item}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{name}</Text>
+      </View>
+    </View>
+  );
 
   render() {
+    this.token = this.props.route.params.token;
+
+    const renderItem = ({item}) => <this.Item name={item.name} />;
     return (
-      <View style={styles.container}>
-        <Text style={styles.content}>登录成功!这是主页3!</Text>
-        <Button
-          onPress={this.backToLogin}
-          style={styles.button}
-          title="点击返回登陆"
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={this.DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -24,11 +38,30 @@ export default class PersonManagerScene extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
+  },
+  cell: {
+    width: 80,
+    height: '100%',
+  },
+  button: {
+    height: 50,
+    width: 280,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    borderRadius: 8,
+    backgroundColor: '#66f',
+    marginTop: 20,
   },
-  content: {
-    fontSize: 40,
+  item: {
+    flexDirection: 'row',
+    backgroundColor: '#f9c2ff',
+    height: 80,
+    marginVertical: 8,
+    marginHorizontal: 8,
+  },
+  title: {
+    textAlignVertical: 'center',
+    fontSize: 32,
   },
 });
