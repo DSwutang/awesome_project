@@ -9,7 +9,16 @@ import {
 } from 'react-native';
 
 export default class PersonManagerScene extends Component {
-  DATA = [];
+  DATA = [
+    {
+      name: '小明',
+      id_c: '111',
+    },
+    {
+      name: '小红',
+      id_c: '222',
+    },
+  ];
 
   Item = ({name}) => (
     <View style={styles.item}>
@@ -18,6 +27,26 @@ export default class PersonManagerScene extends Component {
       </View>
     </View>
   );
+
+  getUser = () => {
+    fetch(
+      'https://backend-vegeteam.app.secoder.net/api/mobile/admin/commonuser/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          user_token: this.token,
+          facility_id: 2,
+        }),
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        //this.DATA = data.commonuser;
+      })
+      .catch(() => {
+        console.log('连接失败');
+      });
+  };
 
   render() {
     this.token = this.props.route.params.token;
@@ -28,7 +57,7 @@ export default class PersonManagerScene extends Component {
         <FlatList
           data={this.DATA}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id_c}
         />
       </SafeAreaView>
     );
