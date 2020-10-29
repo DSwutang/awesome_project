@@ -11,6 +11,7 @@ const Tab = createBottomTabNavigator();
 
 export default class bottomTab extends Component {
   token = this.props.token;
+
   render() {
     return (
       <Tab.Navigator initialRouteName="device" backBehavior="none">

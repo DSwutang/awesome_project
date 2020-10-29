@@ -16,6 +16,8 @@ import RegisterScene from './registerScene';
 import AddUserScene from './addUserScene';
 import PhotoScene from './photoScene';
 import QRphoto from './QRphoto';
+import deviceScene from './deviceManagerScene';
+import personScene from './personManagerScene';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +26,8 @@ function SimpleApp() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Login"
-        screenOptions={{gestureEnabled: true}}>
+        screenOptions={{gestureEnabled: false}}
+        headerMode="none">
         <Stack.Screen
           name="Login"
           component={LoginScene}
