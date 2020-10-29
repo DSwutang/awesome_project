@@ -6,8 +6,14 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Alert,
+  LogBox,
 } from 'react-native';
 import RNFS from 'react-native-fs';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 export default class SelfInfoScene extends Component {
   name = '';
@@ -39,7 +45,7 @@ export default class SelfInfoScene extends Component {
   Photo = () => {
     if (this.photoYES === 1) {
       console.log(this.state.uri);
-      return <Image source={{uri: this.state.uri + 'OK'}} />;
+      return <Image source={{uri: this.state.uri}} />;
     } else {
       return <Image source={require('../icon/add.png')} />;
     }
@@ -66,7 +72,7 @@ export default class SelfInfoScene extends Component {
           },
         ).then((data) => {
           if (data.code === 400) console.log('提交失败');
-          else console.log('提交成功');
+          else Alert.alert('添加', '添加成功');
           const {goBack} = this.props.navigation;
           goBack();
         });

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import PhotoScene from './photoScene';
 import DeviceManagerScene from './deviceManagerScene';
 import PersonManagerScene from './personManagerScene';
 import SelfInfoScene from './selfInfo';
-import {Component, Image, Text} from 'react';
-
-function MyTabBar({state, descriptors, navigation}) {}
+import {Component} from 'react';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +20,9 @@ export default class bottomTab extends Component {
           initialParams={{token: this.token}}
           options={{
             title: '设备管理',
+            tabBarIcon: ({tintColor}) => (
+              <FontAwesome name={'lock'} size={32} color={tintColor} />
+            ),
           }}
         />
         <Tab.Screen
@@ -30,6 +31,9 @@ export default class bottomTab extends Component {
           initialParams={{token: this.token}}
           options={{
             title: '人员管理',
+            tabBarIcon: ({tintColor}) => (
+              <FontAwesome name={'users'} size={26} color={tintColor} />
+            ),
           }}
         />
         <Tab.Screen
@@ -38,7 +42,9 @@ export default class bottomTab extends Component {
           initialParams={{token: this.token}}
           options={{
             title: '个人信息',
-            //tabBarIcon: () => <Image source={require('../icon/self.png')} />,
+            tabBarIcon: ({tintColor}) => (
+              <FontAwesome name={'user-circle-o'} size={26} color={tintColor} />
+            ),
           }}
         />
       </Tab.Navigator>
