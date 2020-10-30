@@ -10,7 +10,7 @@ import {Component} from 'react';
 const Tab = createBottomTabNavigator();
 
 export default class bottomTab extends Component {
-  token = this.props.token;
+  token = this.props.route.params.token;
 
   render() {
     return (

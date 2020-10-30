@@ -10,7 +10,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 //引入界面文件，并设置引入的类
-import HomeScene from './homeScene';
+import HomeScene from './bottomTab';
 import LoginScene from './loginScene';
 import RegisterScene from './registerScene';
 import AddUserScene from './addUserScene';
@@ -36,7 +36,7 @@ function SimpleApp() {
         <Stack.Screen
           name="Home"
           component={HomeScene}
-          initialParams={{header: null}}
+          //initialParams={{header: null}}
         />
         <Stack.Screen
           name="Register"

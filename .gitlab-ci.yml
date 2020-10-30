@@ -4,7 +4,7 @@ stages:
   - test
 
 # Job template for test stage
-.test:
+。test:
   image: node:12.18.3
   stage: test
 
