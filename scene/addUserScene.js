@@ -59,7 +59,7 @@ export default class SelfInfoScene extends Component {
   };
 
   add = () => {
-    RNFS.readFile(this.state.uri + '0', 'base64')
+    RNFS.readFile(this.state.uri, 'base64')
       .then((content) => {
         this.data = content;
         console.log(content);
