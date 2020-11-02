@@ -45,6 +45,7 @@ export default class DeviceManagerScene extends Component {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.number);
         this.DATA = data.facility;
         console.log(this.DATA);
       })
@@ -125,7 +126,8 @@ export default class DeviceManagerScene extends Component {
 
   render() {
     //console.log(this.props.route);
-    this.token = this.props.route.params.token;
+    this.token = this.props.route.params.token.route.params.token;
+    console.log(this.token);
     this.getDATA();
 
     const renderItem = ({item}) => (

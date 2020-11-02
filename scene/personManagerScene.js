@@ -49,7 +49,8 @@ export default class PersonManagerScene extends Component {
   };
 
   render() {
-    this.token = this.props.route.params.token;
+    //this.token = this.props.route.params.token;
+    this.token = this.props.route.params.token.route.params.token;
 
     const renderItem = ({item}) => <this.Item name={item.name} />;
     return (
