@@ -45,16 +45,24 @@ export default class SelfInfoScene extends Component {
   Photo = () => {
     if (this.photoYES === 1) {
       console.log(this.state.uri);
-      return <Image source={{uri: this.state.uri}} />;
+      return (
+        <Image
+          source={{
+            uri: this.state.uri,
+          }}
+          resizeMode="contain"
+        />
+      );
     } else {
       return <Image source={require('../icon/add.png')} />;
     }
   };
 
   add = () => {
-    RNFS.readFile(this.state.uri, 'base64')
+    RNFS.readFile(this.state.uri + '0', 'base64')
       .then((content) => {
         this.data = content;
+        console.log(content);
       })
       .then(() => {
         fetch(
