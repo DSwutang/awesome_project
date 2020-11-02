@@ -32,7 +32,16 @@ const DATA = [
 export default class DeviceManagerScene extends Component {
   token = '';
   input_id = '';
-  DATA = [];
+
+  constructor(props) {
+    super(props);
+    this.token = this.props.route.params.token.route.params.token;
+    this.state = {
+      DATA: [],
+    };
+    this.getDATA();
+  }
+
   getDATA = () => {
     fetch(
       'https://backend-vegeteam.app.secoder.net/api/mobile/admin/facility/',
@@ -45,9 +54,7 @@ export default class DeviceManagerScene extends Component {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.number);
-        this.DATA = data.facility;
-        console.log(this.DATA);
+        this.setState({DATA: data.facility});
       })
       .catch(() => {
         console.log('连接失败');
@@ -126,9 +133,7 @@ export default class DeviceManagerScene extends Component {
 
   render() {
     //console.log(this.props.route);
-    this.token = this.props.route.params.token.route.params.token;
     console.log(this.token);
-    this.getDATA();
 
     const renderItem = ({item}) => (
       <this.Item name={item.location} id={item.id_f} />
@@ -136,9 +141,9 @@ export default class DeviceManagerScene extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={DATA}
+          data={this.state.DATA}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id_f}
+          keyExtractor={(item) => item.id_f.toString()}
         />
         <TouchableOpacity onPress={this.addDevice} style={styles.button}>
           <Text style={styles.btText}>添加设备</Text>
@@ -162,6 +167,7 @@ const styles = StyleSheet.create({
     width: 280,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     borderRadius: 8,
     backgroundColor: '#66f',
     marginTop: 20,

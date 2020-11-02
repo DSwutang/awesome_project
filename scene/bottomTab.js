@@ -38,7 +38,11 @@ function PersonStack(token) {
         name="person"
         component={PersonManagerScene}
         initialParams={{token: token}}
-        options={{headerTitle: '人员管理'}}
+        options={{
+          headerTitle: '人员管理',
+          headerLeft: null,
+          headerTitleStyle: {alignSelf: 'center'},
+        }}
       />
     </Stack_person.Navigator>
   );
@@ -51,7 +55,11 @@ function SelfStack(token) {
         name="self"
         component={SelfInfoScene}
         initialParams={{token: token}}
-        options={{headerTitle: '个人信息'}}
+        options={{
+          headerTitle: '个人信息',
+          headerLeft: null,
+          headerTitleStyle: {alignSelf: 'center'},
+        }}
       />
     </Stack_self.Navigator>
   );

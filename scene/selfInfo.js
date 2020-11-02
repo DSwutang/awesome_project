@@ -12,7 +12,6 @@ export default class SelfInfoScene extends Component {
     this.token = this.props.route.params.token.route.params.token;
     return (
       <View style={styles.container}>
-        <Text style={styles.content}>登录成功!这是主页4!</Text>
         <Button
           onPress={this.backToLogin}
           style={styles.button}
