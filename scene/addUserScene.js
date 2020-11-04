@@ -11,10 +11,20 @@ import {
 } from 'react-native';
 import RNFS from 'react-native-fs';
 import {Base64} from 'js-base64';
+import ImagePicker from 'react-native-image-picker';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
+
+const options = {
+  title: 'Select Avatar',
+  customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 export default class SelfInfoScene extends Component {
   name = '';
@@ -30,6 +40,29 @@ export default class SelfInfoScene extends Component {
     };
   }
 
+  openCamera = () => {
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = {uri: response.uri};
+
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source,
+        });
+      }
+    });
+  };
+
   nameChanged = (newName) => {
     this.name = newName;
   };
@@ -42,12 +75,20 @@ export default class SelfInfoScene extends Component {
     const {navigate} = this.props.navigation; //获取navigation的navigate方法
     navigate('photo', {onUri: this.onUri});
     this.photoYES = 1;
+    //this.openCamera();
   };
 
   Photo = () => {
     if (this.photoYES === 1) {
       console.log(this.state.uri);
-      return <Image source={{uri: this.state.uri}} />;
+      return (
+        <Image
+          source={{
+            uri: this.state.uri,
+          }}
+          resizeMode="contain"
+        />
+      );
     } else {
       return <Image source={require('../icon/add.png')} />;
     }
@@ -59,6 +100,8 @@ export default class SelfInfoScene extends Component {
         this.data = Base64.encode(content);
       })
       .then(() => {
+        console.log(this.token);
+        console.log(this.facility_id);
         fetch(
           'https://backend-vegeteam.app.secoder.net/api/mobile/admin/add/',
           {
@@ -69,7 +112,7 @@ export default class SelfInfoScene extends Component {
               name: this.name,
               gender: 'M',
               birth: '2000-01-01',
-              image: this.data,
+              image: this.state.uri,
             }),
           },
         ).then((data) => {
@@ -87,6 +130,8 @@ export default class SelfInfoScene extends Component {
   render() {
     this.token = this.props.route.params.token;
     this.facility_id = this.props.route.params.facility_id;
+    console.log(this.token);
+    console.log(this.facility_id);
     return (
       <View style={styles.container}>
         <this.Photo />
