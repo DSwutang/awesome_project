@@ -9,16 +9,15 @@ import {
 } from 'react-native';
 
 export default class PersonManagerScene extends Component {
-  DATA = [
-    {
-      name: '小明',
-      id_c: '111',
-    },
-    {
-      name: '小红',
-      id_c: '222',
-    },
-  ];
+  token = '';
+  constructor(props) {
+    super(props);
+    this.token = this.props.route.params.token.route.params.token;
+    this.state = {
+      DATA: [],
+    };
+    this.getDATA();
+  }
 
   Item = ({name}) => (
     <View style={styles.item}>
@@ -28,20 +27,20 @@ export default class PersonManagerScene extends Component {
     </View>
   );
 
-  getUser = () => {
+  getDATA = () => {
     fetch(
-      'https://backend-vegeteam.app.secoder.net/api/mobile/admin/commonuser/',
+      'https://backend-vegeteam.app.secoder.net/api/mobile/admin/commonuser/all/',
       {
         method: 'POST',
         body: JSON.stringify({
           user_token: this.token,
-          facility_id: 2,
         }),
       },
     )
       .then((response) => response.json())
       .then((data) => {
-        //this.DATA = data.commonuser;
+        console.log(data.commonuser);
+        this.setState({DATA: data.commonuser});
       })
       .catch(() => {
         console.log('连接失败');
@@ -49,15 +48,16 @@ export default class PersonManagerScene extends Component {
   };
 
   render() {
-    this.token = this.props.route.params.token;
+    //this.token = this.props.route.params.token;
+    this.token = this.props.route.params.token.route.params.token;
 
     const renderItem = ({item}) => <this.Item name={item.name} />;
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={this.DATA}
+          data={this.state.DATA}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id_c}
+          keyExtractor={(item) => item.id_c.toString()}
         />
       </SafeAreaView>
     );

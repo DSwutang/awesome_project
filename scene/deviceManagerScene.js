@@ -13,25 +13,53 @@ import {
 
 const DATA = [
   {
-    name: '东门',
-    id: '1',
+    location: '东门',
+    id_f: '1',
   },
   {
-    name: '南门',
-    id: '2',
+    location: '南门',
+    id_f: '2',
   },
   {
-    name: '西门',
-    id: '3',
+    location: '西门',
+    id_f: '3',
   },
   {
-    name: '北门',
-    id: '4',
+    location: '北门',
+    id_f: '4',
   },
 ];
 export default class DeviceManagerScene extends Component {
   token = '';
   input_id = '';
+
+  constructor(props) {
+    super(props);
+    this.token = this.props.route.params.token.route.params.token;
+    this.state = {
+      DATA: [],
+    };
+    this.getDATA();
+  }
+
+  getDATA = () => {
+    fetch(
+      'https://backend-vegeteam.app.secoder.net/api/mobile/admin/facility/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          user_token: this.token,
+        }),
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({DATA: data.facility});
+      })
+      .catch(() => {
+        console.log('连接失败');
+      });
+  };
 
   addUser = (deviceID) => {
     const {navigate} = this.props.navigation;
@@ -105,15 +133,17 @@ export default class DeviceManagerScene extends Component {
 
   render() {
     //console.log(this.props.route);
-    this.token = this.props.route.params.token;
+    console.log(this.token);
 
-    const renderItem = ({item}) => <this.Item name={item.name} id={item.id} />;
+    const renderItem = ({item}) => (
+      <this.Item name={item.location} id={item.id_f} />
+    );
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={DATA}
+          data={this.state.DATA}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id_f.toString()}
         />
         <TouchableOpacity onPress={this.addDevice} style={styles.button}>
           <Text style={styles.btText}>添加设备</Text>
@@ -137,6 +167,7 @@ const styles = StyleSheet.create({
     width: 280,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     borderRadius: 8,
     backgroundColor: '#66f',
     marginTop: 20,
