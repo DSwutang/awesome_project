@@ -57,7 +57,7 @@ export default class PersonManagerScene extends Component {
         <FlatList
           data={this.state.DATA}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id_c}
+          keyExtractor={(item) => item.id_c.toString()}
         />
       </SafeAreaView>
     );
