@@ -112,7 +112,7 @@ export default class SelfInfoScene extends Component {
               name: this.name,
               gender: 'M',
               birth: '2000-01-01',
-              image: this.state.uri,
+              image: this.data,
             }),
           },
         ).then((data) => {
