@@ -10,7 +10,6 @@ import {
   LogBox,
 } from 'react-native';
 import RNFS from 'react-native-fs';
-import {Base64} from 'js-base64';
 import ImagePicker from 'react-native-image-picker';
 
 LogBox.ignoreLogs([
@@ -97,7 +96,7 @@ export default class SelfInfoScene extends Component {
   add = () => {
     RNFS.readFile(this.state.uri, 'base64')
       .then((content) => {
-        this.data = Base64.encode(content);
+        this.data = content;
       })
       .then(() => {
         console.log(this.token);
@@ -112,7 +111,7 @@ export default class SelfInfoScene extends Component {
               name: this.name,
               gender: 'M',
               birth: '2000-01-01',
-              image: this.state.uri,
+              image: this.data,
             }),
           },
         ).then((data) => {

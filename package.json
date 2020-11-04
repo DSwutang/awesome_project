@@ -23,7 +23,6 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "jest": "^26.5.2",
     "jest-sonar-reporter": "^2.0.0",
-    "js-base64": "^3.6.0",
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-camera": "^3.40.0",
