@@ -16,15 +16,6 @@ LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
 
-const options = {
-  title: 'Select Avatar',
-  customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
-
 export default class SelfInfoScene extends Component {
   name = '';
   token = '';
@@ -39,7 +30,21 @@ export default class SelfInfoScene extends Component {
     };
   }
 
-  openCamera = () => {
+  photo_pick() {
+    const options = {
+      title: '拍照选择器',
+      customButtons: [{name: 'fb', title: '自定义按钮标题'}],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+      cancelButtonTitle: '取消',
+      takePhotoButtonTitle: '点击拍照',
+      chooseFromLibraryButtonTitle: '从本地库相册导入',
+      chooseWhichLibraryTitle: '从其他库打开',
+      tintColor: '#CB0000',
+    };
+
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
 
@@ -54,13 +59,13 @@ export default class SelfInfoScene extends Component {
 
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
+        this.photoYES = 1;
         this.setState({
-          avatarSource: source,
+          uri: source,
         });
       }
     });
-  };
+  }
 
   nameChanged = (newName) => {
     this.name = newName;
@@ -80,16 +85,16 @@ export default class SelfInfoScene extends Component {
   Photo = () => {
     if (this.photoYES === 1) {
       console.log(this.state.uri);
+      return <Image source={this.state.uri} style={{width: 60, height: 60}} />;
+    } else {
       return (
         <Image
           source={{
-            uri: this.state.uri,
+            uri:
+              'file:///storage/emulated/0/DCIM/Camera/IMG_20201028_125505_1.jpg',
           }}
-          resizeMode="contain"
         />
       );
-    } else {
-      return <Image source={require('../icon/add.png')} />;
     }
   };
 
@@ -134,7 +139,9 @@ export default class SelfInfoScene extends Component {
     return (
       <View style={styles.container}>
         <this.Photo />
-        <TouchableOpacity onPress={this.regisPhoto} style={styles.button}>
+        <TouchableOpacity
+          onPress={this.photo_pick.bind(this)}
+          style={styles.button}>
           <Text>提交照片</Text>
         </TouchableOpacity>
         <View style={styles.inputBox}>
