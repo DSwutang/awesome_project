@@ -11,24 +11,6 @@ import {
   Button,
 } from 'react-native';
 
-const DATA = [
-  {
-    location: '东门',
-    id_f: '1',
-  },
-  {
-    location: '南门',
-    id_f: '2',
-  },
-  {
-    location: '西门',
-    id_f: '3',
-  },
-  {
-    location: '北门',
-    id_f: '4',
-  },
-];
 export default class DeviceManagerScene extends Component {
   token = '';
   input_id = '';
@@ -68,9 +50,11 @@ export default class DeviceManagerScene extends Component {
 
   Item = ({name, id}) => (
     <View style={styles.item}>
-      <View style={styles.container}>
+      <TouchableOpacity  onPress={()=>{
+
+      }} style={styles.container}>
         <Text style={styles.title}>{name}</Text>
-      </View>
+      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           this.addUser(id);

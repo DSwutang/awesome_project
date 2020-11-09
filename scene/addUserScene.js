@@ -10,7 +10,8 @@ import {
   LogBox,
 } from 'react-native';
 import RNFS from 'react-native-fs';
-import ImagePicker from 'react-native-image-picker';
+import ModalDropdown from 'react-native-modal-dropdown';
+//import ImagePicker from 'react-native-image-picker';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -30,42 +31,42 @@ export default class SelfInfoScene extends Component {
     };
   }
 
-  photo_pick() {
-    const options = {
-      title: '拍照选择器',
-      customButtons: [{name: 'fb', title: '自定义按钮标题'}],
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-      cancelButtonTitle: '取消',
-      takePhotoButtonTitle: '点击拍照',
-      chooseFromLibraryButtonTitle: '从本地库相册导入',
-      chooseWhichLibraryTitle: '从其他库打开',
-      tintColor: '#CB0000',
-    };
+  // photo_pick() {
+  //   const options = {
+  //     title: '拍照选择器',
+  //     customButtons: [{name: 'fb', title: '自定义按钮标题'}],
+  //     storageOptions: {
+  //       skipBackup: true,
+  //       path: 'images',
+  //     },
+  //     cancelButtonTitle: '取消',
+  //     takePhotoButtonTitle: '点击拍照',
+  //     chooseFromLibraryButtonTitle: '从本地库相册导入',
+  //     chooseWhichLibraryTitle: '从其他库打开',
+  //     tintColor: '#CB0000',
+  //   };
 
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
+  //   ImagePicker.showImagePicker(options, (response) => {
+  //     console.log('Response = ', response);
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = {uri: response.uri};
+  //     if (response.didCancel) {
+  //       console.log('User cancelled image picker');
+  //     } else if (response.error) {
+  //       console.log('ImagePicker Error: ', response.error);
+  //     } else if (response.customButton) {
+  //       console.log('User tapped custom button: ', response.customButton);
+  //     } else {
+  //       const source = {uri: response.uri};
 
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-        this.photoYES = 1;
-        this.setState({
-          uri: source,
-        });
-      }
-    });
-  }
+  //       // You can also display the image using data:
+  //       // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+  //       this.photoYES = 1;
+  //       this.setState({
+  //         uri: source,
+  //       });
+  //     }
+  //   });
+  // }
 
   nameChanged = (newName) => {
     this.name = newName;
@@ -139,9 +140,7 @@ export default class SelfInfoScene extends Component {
     return (
       <View style={styles.container}>
         <this.Photo />
-        <TouchableOpacity
-          onPress={this.photo_pick.bind(this)}
-          style={styles.button}>
+        <TouchableOpacity onPress={this.regisPhoto} style={styles.button}>
           <Text>提交照片</Text>
         </TouchableOpacity>
         <View style={styles.inputBox}>
