@@ -6,6 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import DeviceManagerScene from './deviceManagerScene';
 import PersonManagerScene from './personManagerScene';
 import SelfInfoScene from './selfInfo';
+import deviceTab from './deviceTab';
 import {Component, TouchableOpacity, Text, Image} from 'react';
 import {Button, StyleSheet} from 'react-native';
 
@@ -25,6 +26,13 @@ function DeviceStack(token) {
           headerTitle: '设备管理',
           headerLeft: null,
           headerTitleStyle: {alignSelf: 'center'},
+        }}
+      />
+      <Stack_device.Screen
+        name="deviceTab"
+        component={deviceTab}
+        options={{
+          headerTitle: '设备明细',
         }}
       />
     </Stack_device.Navigator>
@@ -67,7 +75,6 @@ function SelfStack(token) {
 
 export default class bottomTab extends Component {
   token = this.props.route.params.token;
-
   render() {
     return (
       <Tab.Navigator initialRouteName="device" backBehavior="none">
@@ -78,7 +85,7 @@ export default class bottomTab extends Component {
           options={{
             title: '设备管理',
             tabBarIcon: ({tintColor}) => (
-              <FontAwesome name={'lock'} size={32} color={tintColor} />
+              <FontAwesome name={'lock'} size={30} color={tintColor} />
             ),
           }}
         />
@@ -89,7 +96,7 @@ export default class bottomTab extends Component {
           options={{
             title: '人员管理',
             tabBarIcon: ({tintColor}) => (
-              <FontAwesome name={'users'} size={26} color={tintColor} />
+              <FontAwesome name={'users'} size={23} color={tintColor} />
             ),
           }}
         />
@@ -100,7 +107,7 @@ export default class bottomTab extends Component {
           options={{
             title: '个人信息',
             tabBarIcon: ({tintColor}) => (
-              <FontAwesome name={'user-circle-o'} size={26} color={tintColor} />
+              <FontAwesome name={'user-circle-o'} size={24} color={tintColor} />
             ),
           }}
         />

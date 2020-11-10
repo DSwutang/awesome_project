@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Button,
 } from 'react-native';
+import {SwipeAction} from '@ant-design/react-native';
 
 export default class DeviceManagerScene extends Component {
   token = '';
@@ -43,38 +44,84 @@ export default class DeviceManagerScene extends Component {
       });
   };
 
+  del = (deviceID) => {
+    fetch(
+      'https://backend-vegeteam.app.secoder.net/api/mobile/admin/unbindfacility/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          user_token: this.token,
+          facility_id: deviceID,
+        }),
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.code === 200) {
+          Alert.alert('删除设备', '删除成功');
+        } else {
+          Alert.alert('删除设备', '删除失败');
+        }
+        this.getDATA();
+      })
+      .catch(() => {
+        console.log('连接失败');
+      });
+  };
+
   addUser = (deviceID) => {
     const {navigate} = this.props.navigation;
     navigate('AddUser', {token: this.token, facility_id: deviceID});
   };
 
-  Item = ({name, id}) => (
-    <View style={styles.item}>
-      <TouchableOpacity  onPress={()=>{
+  openInfo = (deviceID) => {
+    const {navigate} = this.props.navigation;
+    navigate('deviceTab', {token: this.token, facility_id: deviceID});
+  };
 
-      }} style={styles.container}>
-        <Text style={styles.title}>{name}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          this.addUser(id);
-        }}>
-        <View style={styles.cell}>
-          <Image
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              width: '80%',
-              height: '80%',
-              marginTop: '10%',
-              marginLeft: '10%',
-            }}
-            resizeMode="center"
-            resizeMethod="resize"
-            source={require('../icon/add.png')}
-          />
-        </View>
-      </TouchableOpacity>
-    </View>
+  Item = ({name, id}) => (
+    <SwipeAction
+      autoClose
+      style={{backgroundColor: 'transparent'}}
+      right={[
+        {
+          text: '删除',
+          onPress: () => {
+            // 删除逻辑
+            this.del(id);
+          },
+          style: {backgroundColor: 'red', color: 'white'},
+        },
+      ]}>
+      <View style={styles.item}>
+        <TouchableOpacity
+          onPress={() => {
+            this.openInfo(id);
+          }}
+          style={styles.container}>
+          <Text style={styles.title}>{name}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            this.addUser(id);
+          }}>
+          <View style={styles.cell}>
+            <Image
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                width: '80%',
+                height: '80%',
+                marginTop: '10%',
+                marginLeft: '10%',
+              }}
+              resizeMode="center"
+              resizeMethod="resize"
+              source={require('../icon/add.png')}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </SwipeAction>
   );
 
   bind = () => {

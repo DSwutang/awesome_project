@@ -11,12 +11,15 @@ const deviceTab = createBottomTabNavigator();
 
 export default class bottomTab extends Component {
   token = this.props.route.params.token;
+  id = this.props.route.params.facility_id;
   render() {
+    console.log(this.props.route);
     return (
       <deviceTab.Navigator>
         <deviceTab.Screen
           name="devicePerson"
           component={devicePerson}
+          initialParams={{token: this.token, facility_id: this.id}}
           options={{
             title: '人员',
           }}
@@ -24,6 +27,7 @@ export default class bottomTab extends Component {
         <deviceTab.Screen
           name="deviceRecord"
           component={deviceRecord}
+          initialParams={{token: this.token, facility_id: this.id}}
           options={{
             title: '记录',
           }}

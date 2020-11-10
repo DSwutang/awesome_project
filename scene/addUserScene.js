@@ -10,7 +10,6 @@ import {
   LogBox,
 } from 'react-native';
 import RNFS from 'react-native-fs';
-import ModalDropdown from 'react-native-modal-dropdown';
 //import ImagePicker from 'react-native-image-picker';
 
 LogBox.ignoreLogs([
@@ -121,7 +120,7 @@ export default class SelfInfoScene extends Component {
             }),
           },
         ).then((data) => {
-          if (data.code === 400) console.log('提交失败');
+          if (data.code !== 200) console.log('提交失败');
           else Alert.alert('添加', '添加成功');
           const {goBack} = this.props.navigation;
           goBack();
