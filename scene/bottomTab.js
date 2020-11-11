@@ -28,13 +28,6 @@ function DeviceStack(token) {
           headerTitleStyle: {alignSelf: 'center'},
         }}
       />
-      <Stack_device.Screen
-        name="deviceTab"
-        component={deviceTab}
-        options={{
-          headerTitle: '设备明细',
-        }}
-      />
     </Stack_device.Navigator>
   );
 }

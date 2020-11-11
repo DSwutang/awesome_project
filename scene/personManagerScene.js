@@ -5,10 +5,9 @@ import {
   StyleSheet,
   FlatList,
   SafeAreaView,
-  Button,
+  TouchableOpacity,
   Alert,
 } from 'react-native';
-import {SwipeAction} from '@ant-design/react-native';
 
 export default class PersonManagerScene extends Component {
   token = '';
@@ -21,51 +20,21 @@ export default class PersonManagerScene extends Component {
     this.getDATA();
   }
 
-  del = (name, gender, birth, id_c) => {
-    fetch(
-      'https://backend-vegeteam.app.secoder.net/api/mobile/admin/unbindfacility/',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          user_token: this.token,
-          facility_id: deviceID,
-        }),
-      },
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.code === 200) {
-          Alert.alert('删除设备', '删除成功');
-        } else {
-          Alert.alert('删除设备', '删除失败');
-        }
-        this.getDATA();
-      })
-      .catch(() => {
-        console.log('连接失败');
-      });
+  goIn = () => {
+    const {navigate} = this.props.navigation;
+    navigate('personInfo');
   };
 
-  Item = ({name}) => (
-    <SwipeAction
-      autoClose
-      style={{backgroundColor: 'transparent'}}
-      right={[
-        {
-          text: '删除',
-          onPress: () => {
-            // 删除逻辑
-            this.del(name);
-          },
-          style: {backgroundColor: 'red', color: 'white'},
-        },
-      ]}>
-      <View style={styles.item}>
-        <View style={styles.container}>
-          <Text style={styles.title}>{name}</Text>
-        </View>
-      </View>
-    </SwipeAction>
+  Item = ({item}) => (
+    <View style={styles.item}>
+      <TouchableOpacity
+        onPress={() => {
+          this.goIn(item);
+        }}
+        style={styles.container}>
+        <Text style={styles.title}>{item.name}</Text>
+      </TouchableOpacity>
+    </View>
   );
 
   getDATA = () => {
@@ -92,7 +61,7 @@ export default class PersonManagerScene extends Component {
     //this.token = this.props.route.params.token;
     this.token = this.props.route.params.token.route.params.token;
 
-    const renderItem = ({item}) => <this.Item name={item.name} />;
+    const renderItem = ({item}) => <this.Item item={item} />;
     return (
       <SafeAreaView style={styles.container}>
         <FlatList

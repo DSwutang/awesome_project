@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React from 'react';
 import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
@@ -16,6 +10,7 @@ import RegisterScene from './registerScene';
 import AddUserScene from './addUserScene';
 import PhotoScene from './photoScene';
 import QRphoto from './QRphoto';
+import pageStack from './pageStack';
 import deviceScene from './deviceManagerScene';
 import personScene from './personManagerScene';
 
@@ -48,6 +43,7 @@ function SimpleApp() {
           component={AddUserScene}
           options={{headerTitle: <Text>添加用户</Text>}}
         />
+        <Stack.Screen name="pageStack" component={pageStack} />
         <Stack.Screen name="photo" component={PhotoScene} />
         <Stack.Screen name="QR" component={QRphoto} />
       </Stack.Navigator>
