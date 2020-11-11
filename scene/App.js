@@ -23,26 +23,14 @@ function SimpleApp() {
         initialRouteName="Login"
         screenOptions={{gestureEnabled: false}}
         headerMode="none">
-        <Stack.Screen
-          name="Login"
-          component={LoginScene}
-          options={{headerTitle: <Text>登陆</Text>}}
-        />
+        <Stack.Screen name="Login" component={LoginScene} />
         <Stack.Screen
           name="Home"
           component={HomeScene}
           //initialParams={{header: null}}
         />
-        <Stack.Screen
-          name="Register"
-          component={RegisterScene}
-          options={{headerTitle: <Text>注册</Text>}}
-        />
-        <Stack.Screen
-          name="AddUser"
-          component={AddUserScene}
-          options={{headerTitle: <Text>添加用户</Text>}}
-        />
+        <Stack.Screen name="Register" component={RegisterScene} />
+        <Stack.Screen name="AddUser" component={AddUserScene} />
         <Stack.Screen name="pageStack" component={pageStack} />
         <Stack.Screen name="photo" component={PhotoScene} />
         <Stack.Screen name="QR" component={QRphoto} />

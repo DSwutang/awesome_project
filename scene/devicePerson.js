@@ -35,9 +35,6 @@ export default class DeviceRecord extends Component {
     )
       .then((response) => response.json())
       .then((_data) => {
-        console.log(this.token);
-        console.log(this.deviceID);
-        console.log(_data.commonuser);
         this.setState({DATA: _data.commonuser});
       })
       .catch(() => {
@@ -74,14 +71,15 @@ export default class DeviceRecord extends Component {
       });
   };
 
-  goInfo = () => {
+  goInfo = (item) => {
     const {navigate} = this.props.navigation;
     navigate('pageStack', {
       screen: 'personInfo',
+      params: {info: item},
     });
   };
 
-  Item = ({name, gender, birth, id_c}) => (
+  Item = ({item}) => (
     <SwipeAction
       autoClose
       style={{backgroundColor: 'transparent'}}
@@ -90,7 +88,7 @@ export default class DeviceRecord extends Component {
           text: '删除',
           onPress: () => {
             // 删除逻辑
-            this.del(name, gender, birth, id_c);
+            this.del(item);
           },
           style: {backgroundColor: 'red', color: 'white'},
         },
@@ -98,10 +96,10 @@ export default class DeviceRecord extends Component {
       <View style={styles.item}>
         <TouchableOpacity
           onPress={() => {
-            this.goInfo();
+            this.goInfo(item);
           }}
           style={styles.container}>
-          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.title}>{item.name}</Text>
         </TouchableOpacity>
       </View>
     </SwipeAction>

@@ -20,10 +20,11 @@ export default class PersonManagerScene extends Component {
     this.getDATA();
   }
 
-  goIn = () => {
+  goIn = (item) => {
     const {navigate} = this.props.navigation;
     navigate('pageStack', {
       screen: 'personInfo',
+      params: {info: item},
     });
   };
 
