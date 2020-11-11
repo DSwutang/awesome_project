@@ -7,7 +7,7 @@ import DeviceManagerScene from './deviceManagerScene';
 import PersonManagerScene from './personManagerScene';
 import SelfInfoScene from './selfInfo';
 import deviceTab from './deviceTab';
-import {Component, TouchableOpacity, Text, Image} from 'react';
+import {Component, Text, Image} from 'react';
 import {Button, StyleSheet} from 'react-native';
 
 const Tab = createBottomTabNavigator();
@@ -23,6 +23,7 @@ function DeviceStack(token) {
         component={DeviceManagerScene}
         initialParams={{token: token}}
         options={{
+          // header: null,
           headerTitle: '设备管理',
           headerLeft: null,
           headerTitleStyle: {alignSelf: 'center'},
@@ -69,6 +70,7 @@ function SelfStack(token) {
 export default class bottomTab extends Component {
   token = this.props.route.params.token;
   render() {
+    console.log(this.props.route);
     return (
       <Tab.Navigator initialRouteName="device" backBehavior="none">
         <Tab.Screen

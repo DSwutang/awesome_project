@@ -76,7 +76,9 @@ export default class DeviceRecord extends Component {
 
   goInfo = () => {
     const {navigate} = this.props.navigation;
-    navigate('personInfo');
+    navigate('pageStack', {
+      screen: 'personInfo',
+    });
   };
 
   Item = ({name, gender, birth, id_c}) => (

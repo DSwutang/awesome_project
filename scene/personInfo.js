@@ -3,6 +3,7 @@ import {Text, View, StyleSheet} from 'react-native';
 
 export default class PersonInfo extends Component {
   render() {
+    console.log(this.props.route.params);
     return (
       <View style={styles.container}>
         <Text style={{alignSelf: 'center'}}>OK</Text>

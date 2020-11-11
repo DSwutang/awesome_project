@@ -10,10 +10,13 @@ import {Component} from 'react';
 const deviceTab = createBottomTabNavigator();
 
 export default class bottomTab extends Component {
-  token = this.props.route.params.token;
-  id = this.props.route.params.facility_id;
+  token = '';
+  id = '';
   render() {
+    console.log('deviceTab');
     console.log(this.props.route);
+    this.token = this.props.route.params.token;
+    this.id = this.props.route.params.facility_id;
     return (
       <deviceTab.Navigator>
         <deviceTab.Screen

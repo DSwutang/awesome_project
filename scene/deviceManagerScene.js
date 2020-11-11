@@ -9,8 +9,18 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Button,
+  LogBox,
 } from 'react-native';
 import {SwipeAction} from '@ant-design/react-native';
+
+LogBox.ignoreLogs([
+  'Warning: componentWillMount is deprecated',
+  'Warning: componentWillReceiveProps is deprecated',
+  'Module RCTImageLoader requires',
+  'Warning: componentWillUpdate is deprecated',
+  'componentWillMount has been renamed, and is not recommended for use.',
+  'Warning: componentWillReceiveProps has been renamed, and is not recommended for use.',
+]);
 
 export default class DeviceManagerScene extends Component {
   token = '';
@@ -76,7 +86,10 @@ export default class DeviceManagerScene extends Component {
 
   openInfo = (deviceID) => {
     const {navigate} = this.props.navigation;
-    navigate('deviceTab', {token: this.token, facility_id: deviceID});
+    navigate('pageStack', {
+      screen: 'deviceTab',
+      params: {token: this.token, facility_id: deviceID},
+    });
   };
 
   Item = ({name, id}) => (

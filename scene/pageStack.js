@@ -9,10 +9,10 @@ import personInfo from './personInfo';
 
 const ps = createStackNavigator();
 
-export default class otherStack extends Component {
+export default class pageStack extends Component {
   render() {
     return (
-      <ps.navigator>
+      <ps.Navigator>
         <ps.Screen
           name="deviceTab"
           component={deviceTab}
@@ -27,7 +27,7 @@ export default class otherStack extends Component {
             headerTitle: '用户信息',
           }}
         />
-      </ps.navigator>
+      </ps.Navigator>
     );
   }
 }
