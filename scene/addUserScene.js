@@ -10,7 +10,9 @@ import {
   LogBox,
 } from 'react-native';
 import RNFS from 'react-native-fs';
-//import ImagePicker from 'react-native-image-picker';
+import ModalDropdown from 'react-native-modal-dropdown';
+import datePicker from 'react-native-datepicker';
+import DatePicker from 'react-native-datepicker';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -153,6 +155,26 @@ export default class SelfInfoScene extends Component {
             placeholder={'name'} //设置占位符
           />
         </View>
+        <ModalDropdown options={['F', 'M']} />
+        <DatePicker
+          placeholder="select date"
+          format="YYYY-MM-DD"
+          minDate="2016-05-01"
+          maxDate="2016-06-01"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0,
+            },
+            dateInput: {
+              marginLeft: 36,
+            },
+          }}
+        />
         <TouchableOpacity onPress={this.add} style={styles.button}>
           <Text>添加</Text>
         </TouchableOpacity>
