@@ -105,7 +105,7 @@ export default class DeviceRecord extends Component {
     </SwipeAction>
   );
   render() {
-    const renderItem = ({item}) => <this.Item name={item.name} />;
+    const renderItem = ({item}) => <this.Item item={item} />;
     return (
       <SafeAreaView>
         <FlatList
