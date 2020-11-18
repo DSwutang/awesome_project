@@ -42,23 +42,21 @@ export default class DeviceRecord extends Component {
       });
   };
 
-  del = (name, gender, birth, id_c) => {
-    fetch(
-      'https://backend-vegeteam.app.secoder.net/api/mobile/admin/unbindfacility/',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          user_token: this.token,
-          facility_id: this.deviceID,
-          name: name,
-          gender: gender,
-          birth: birth,
-          id_c: id_c,
-        }),
-      },
-    )
+  del = (item) => {
+    console.log(this.token);
+    console.log(this.deviceID);
+    console.log(item);
+    fetch('https://backend-vegeteam.app.secoder.net/api/mobile/admin/delete/', {
+      method: 'POST',
+      body: JSON.stringify({
+        user_token: this.token,
+        facility_id: this.deviceID,
+        id_c: item.id_c,
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.code === 200) {
           Alert.alert('解绑人员', '解绑成功');
         } else {

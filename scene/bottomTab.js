@@ -58,7 +58,7 @@ function SelfStack(token) {
         component={SelfInfoScene}
         initialParams={{token: token}}
         options={{
-          headerTitle: '个人信息',
+          headerTitle: '我的',
           headerLeft: null,
           headerTitleStyle: {alignSelf: 'center'},
         }}
@@ -100,7 +100,7 @@ export default class bottomTab extends Component {
           component={SelfStack}
           initialParams={{token: this.token}}
           options={{
-            title: '个人信息',
+            title: '我的',
             tabBarIcon: ({tintColor}) => (
               <FontAwesome name={'user-circle-o'} size={24} color={tintColor} />
             ),

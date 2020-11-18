@@ -10,7 +10,6 @@ export default class SelfInfoScene extends Component {
   };
 
   render() {
-    this.token = this.props.route.params.token.route.params.token;
     return (
       <View>
         <TouchableOpacity onPress={this.backToLogin} style={styles.button}>
@@ -32,7 +31,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '140%',
     height: '10%',
-    backgroundColor: '#FF0000',
+    justifyContent: 'center',
+    backgroundColor: 'red',
   },
   content: {
     fontFamily: 'customFont',

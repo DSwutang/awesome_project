@@ -22,7 +22,7 @@ export default class SelfInfoScene extends Component {
   token = '';
   facility_id = '';
   data = '';
-  gender = '';
+  gender = 'M';
   photoYES = 0;
   calenderText = '请选择出生日期';
   constructor(props) {

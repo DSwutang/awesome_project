@@ -13,6 +13,8 @@ export default class PersonInfo extends Component {
     this.getDATA();
   }
   getDATA = () => {
+    console.log(this.info);
+    console.log('debug');
     fetch('https://backend-vegeteam.app.secoder.net/api/mobile/admin/access/', {
       method: 'POST',
       body: JSON.stringify({
@@ -23,8 +25,14 @@ export default class PersonInfo extends Component {
     })
       .then((response) => response.json())
       .then((_data) => {
-        console.log(_data);
-        this.setState({DATA: _data.data});
+        let data_all = _data.data;
+        let data_input = [];
+        for (var i = 0; i < data_all.length; i++) {
+          if (data_all[i].commonuser_id === this.info.id_c) {
+            data_input.push(data_all[i]);
+          }
+        }
+        this.setState({DATA: data_input});
       })
       .catch(() => {
         console.log('连接失败');
