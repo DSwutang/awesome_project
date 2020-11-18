@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {Text, View, StyleSheet, Button, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class SelfInfoScene extends Component {
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   button: {
-    marginTop: '140%',
-    height: '10%',
+    marginTop: Dimensions.get('window').height * 0.75,
+    height: Dimensions.get('window').height * 0.08,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#ff3366',

@@ -48,8 +48,13 @@ export default class PersonInfo extends Component {
 
   Item = ({item}) => (
     <View style={styles.item}>
-      <Text style={styles.title}> {item.commonuser_name}</Text>
-      <Text style={styles.content}> {item.datetime}</Text>
+      <View style={styles.item_left}>
+        <Text style={styles.title}> {item.commonuser_name}</Text>
+        <Text style={styles.content}> {item.datetime}</Text>
+      </View>
+      <View style={styles.item_right}>
+        <Text style={styles.title}> {this.deviceID}</Text>
+      </View>
     </View>
   );
 
@@ -62,7 +67,6 @@ export default class PersonInfo extends Component {
         <Text style={styles.content}>性别： {this.info.gender}</Text>
         <Text style={styles.content}>出生日期：{this.info.birth}</Text>
         {/* </View> */}
-        <Text style={styles.divide}>进出记录</Text>
         <FlatList
           data={this.state.DATA}
           renderItem={renderItem}
@@ -101,9 +105,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   item: {
+    flexDirection: 'row',
     backgroundColor: '#33ff99',
     height: 80,
     marginVertical: 8,
     marginHorizontal: 8,
+  },
+  item_left: {
+    width: '70%',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  item_right: {
+    width: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

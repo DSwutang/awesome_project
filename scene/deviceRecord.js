@@ -49,8 +49,13 @@ export default class DeviceRecord extends Component {
   };
   Item = ({item}) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{item.commonuser_name}</Text>
-      <Text style={styles.content}>{item.datetime}</Text>
+      <View style={styles.item_left}>
+        <Text style={styles.title}> {item.commonuser_name}</Text>
+        <Text style={styles.content}> {item.datetime}</Text>
+      </View>
+      <View style={styles.item_right}>
+        <Text style={styles.title}> {this.deviceID}</Text>
+      </View>
     </View>
   );
   _onRefresh() {
@@ -109,10 +114,20 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    backgroundColor: '#f9c2ff',
+    backgroundColor: '#33ff99',
     height: 80,
     marginVertical: 8,
     marginHorizontal: 8,
+  },
+  item_left: {
+    width: '70%',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  item_right: {
+    width: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     textAlignVertical: 'center',
