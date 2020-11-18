@@ -75,7 +75,7 @@ export default class DeviceRecord extends Component {
     const {navigate} = this.props.navigation;
     navigate('pageStack', {
       screen: 'personInfo',
-      params: {info: item},
+      params: {info: item, facility_id: this.deviceID, token: this.token},
     });
   };
 

@@ -159,6 +159,7 @@ export default class DeviceManagerScene extends Component {
           console.log('绑定失败');
           Alert.alert('绑定', '绑定失败');
         }
+        this.getDATA();
       })
       .catch(() => {
         console.log('连接失败');
@@ -173,6 +174,10 @@ export default class DeviceManagerScene extends Component {
   addDevice = () => {
     const {navigate} = this.props.navigation; //获取navigation的navigate方法
     navigate('QR', {onID: this.onID});
+  };
+
+  refresh = () => {
+    this.getDATA();
   };
 
   render() {

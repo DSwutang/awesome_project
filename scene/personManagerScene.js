@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  Button,
 } from 'react-native';
 
 export default class PersonManagerScene extends Component {
@@ -20,13 +21,7 @@ export default class PersonManagerScene extends Component {
     this.getDATA();
   }
 
-  goIn = (item) => {
-    const {navigate} = this.props.navigation;
-    navigate('pageStack', {
-      screen: 'personInfo',
-      params: {info: item},
-    });
-  };
+  goIn = (item) => {};
 
   Item = ({item}) => (
     <View style={styles.item}>
@@ -39,6 +34,10 @@ export default class PersonManagerScene extends Component {
       </TouchableOpacity>
     </View>
   );
+
+  refresh = () => {
+    this.getDATA();
+  };
 
   getDATA = () => {
     fetch(
@@ -72,6 +71,7 @@ export default class PersonManagerScene extends Component {
           renderItem={renderItem}
           keyExtractor={(item) => item.id_c.toString()}
         />
+        <Button onPress={this.refresh} title="刷新" />
       </SafeAreaView>
     );
   }
