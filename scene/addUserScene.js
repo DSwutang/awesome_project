@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import RNFS from 'react-native-fs';
 import ModalDropdown from 'react-native-modal-dropdown';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -148,13 +148,14 @@ export default class SelfInfoScene extends Component {
           <Text>{this.calenderText}</Text>
         </TouchableOpacity>
         {this.state.show && (
-          <DateTimePicker
+          <RNDateTimePicker
             testID="dateTimePicker"
             value={new Date()}
             mode="date"
             is24Hour={true}
             display="default"
             onChange={this.onChange}
+            style={styles.datetime}
           />
         )}
         <TouchableOpacity onPress={this.add} style={styles.button}>
@@ -199,6 +200,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 8,
     marginTop: 20,
+  },
+  datetime: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: 280,
+    borderRadius: 8,
   },
   button: {
     height: 50,

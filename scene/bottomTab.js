@@ -70,7 +70,7 @@ function SelfStack(token) {
 export default class bottomTab extends Component {
   token = this.props.route.params.token;
   render() {
-    console.log(this.props.route);
+    //console.log(this.props.route);
     return (
       <Tab.Navigator initialRouteName="device" backBehavior="none">
         <Tab.Screen
