@@ -133,6 +133,40 @@ export default class SelfInfoScene extends Component {
       });
   };
 
+  _selectStatus = (index, value) => {
+    // this.refs.search.blur()
+    this.setState({
+      statusShow: false,
+      statusText: value,
+    });
+  };
+  // 分类选择
+  _selectType = (index, value) => {
+    console.log(index + '--' + value);
+    this.setState({
+      statusShow: false,
+      typeText: value,
+    });
+  };
+  // 下拉列表分隔符
+  _separator = () => {
+    return <Text style={{height: 0}}></Text>;
+  };
+  // 状态选择下拉框位置
+  _adjustStatus = () => {
+    return {
+      right: 40,
+      top: 99,
+    };
+  };
+  // 分类选择下拉框位置
+  _adjustType = () => {
+    return {
+      right: 0,
+      top: 99,
+    };
+  };
+
   render() {
     this.token = this.props.route.params.token;
     this.facility_id = this.props.route.params.facility_id;
@@ -155,12 +189,30 @@ export default class SelfInfoScene extends Component {
             placeholder={'name'} //设置占位符
           />
         </View>
-        <ModalDropdown options={['F', 'M']} />
+        <ModalDropdown
+          options={['F', 'M']} //下拉内容数组
+          style={styles.modal} //按钮样式
+          dropdownStyle={[styles.dropdown, {height: 32 * 2}]} //下拉框样式
+          dropdownTextStyle={styles.dropdownText} //下拉框文本样式
+          renderSeparator={this._separator} //下拉框文本分隔样式
+          adjustFrame={this._adjustType} //下拉框位置
+          dropdownTextHighlightStyle={{color: 'rgba(42, 130, 228, 1)'}} //下拉框选中颜色
+          onDropdownWillShow={() => {
+            //按下按钮显示按钮时触发
+            this.refs.search.blur();
+            this.setState({typeShow: true});
+          }}
+          onDropdownWillHide={() => this.setState({typeShow: false})} //当下拉按钮通过触摸按钮隐藏时触发
+          onSelect={this._selectType} //当选项行与选定的index 和 value 接触时触发
+        >
+          <Text> OK </Text>
+        </ModalDropdown>
+
         <DatePicker
           placeholder="select date"
           format="YYYY-MM-DD"
-          minDate="2016-05-01"
-          maxDate="2016-06-01"
+          minDate="1900-01-01"
+          maxDate="2020-01-01"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
