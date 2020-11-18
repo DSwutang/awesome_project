@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '30%',
     margin: '10%',
+    marginTop: '70%',
     height: '8%',
   },
   button_text: {

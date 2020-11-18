@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Button} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class SelfInfoScene extends Component {
   token = '';
@@ -11,12 +12,10 @@ export default class SelfInfoScene extends Component {
   render() {
     this.token = this.props.route.params.token.route.params.token;
     return (
-      <View style={styles.container}>
-        <Button
-          onPress={this.backToLogin}
-          style={styles.button}
-          title="点击返回登陆"
-        />
+      <View>
+        <TouchableOpacity onPress={this.backToLogin} style={styles.button}>
+          <Text style={styles.content}>退出登录</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -29,7 +28,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  button: {
+    alignItems: 'center',
+    marginTop: '140%',
+    height: '10%',
+    backgroundColor: '#FF0000',
+  },
   content: {
-    fontSize: 40,
+    fontFamily: 'customFont',
+    fontSize: 25,
   },
 });
