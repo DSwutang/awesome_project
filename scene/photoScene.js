@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Button, TouchableHighlight} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  TouchableHighlight,
+  Dimensions,
+} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
 export default class PhotoScene extends Component {
@@ -37,7 +44,7 @@ export default class PhotoScene extends Component {
           <TouchableHighlight
             onPress={this._takePicture.bind(this)}
             style={styles.button}>
-            <Text style={styles.button_text}>Take Picture</Text>
+            <Text style={styles.button_text}>拍照</Text>
           </TouchableHighlight>
         </RNCamera>
       </View>
@@ -58,12 +65,14 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '30%',
     margin: '10%',
-    marginTop: '160%',
+    marginTop: Dimensions.get('window').height * 0.85,
     marginLeft: '35%',
-    height: '8%',
+    height: Dimensions.get('window').height * 0.08,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   button_text: {
     textAlign: 'center',
-    fontSize: 10,
+    fontSize: 15,
   },
 });

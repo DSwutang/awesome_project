@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   button: {
-    alignItems: 'center',
     marginTop: '140%',
     height: '10%',
+    alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'red',
   },

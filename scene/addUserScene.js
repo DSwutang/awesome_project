@@ -8,6 +8,7 @@ import {
   TextInput,
   Alert,
   LogBox,
+  Dimensions,
 } from 'react-native';
 import RNFS from 'react-native-fs';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -49,12 +50,7 @@ export default class SelfInfoScene extends Component {
   };
 
   Photo = () => {
-    if (this.photoYES === 1) {
-      console.log(this.state.uri);
-      return <Image source={this.state.uri} style={{width: 60, height: 60}} />;
-    } else {
-      return <Image source={require('../icon/add.png')} />;
-    }
+    return <Image source={require('../icon/add.png')} />;
   };
 
   add = () => {
@@ -107,6 +103,7 @@ export default class SelfInfoScene extends Component {
   };
 
   onChange = (event, date) => {
+    if (typeof date === 'undefined') return;
     let year = date.getFullYear();
     let month = date.getMonth();
     let day = date.getDate();
