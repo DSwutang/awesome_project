@@ -8,7 +8,7 @@ import {
   TextInput,
   Alert,
   LogBox,
-  Dimensions,
+  RefreshControl,
 } from 'react-native';
 import RNFS from 'react-native-fs';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -31,6 +31,7 @@ export default class SelfInfoScene extends Component {
     this.state = {
       uri: '',
       show: false,
+      refreshing: false,
     };
   }
 
@@ -79,10 +80,13 @@ export default class SelfInfoScene extends Component {
         )
           .then((response) => response.json())
           .then((data) => {
-            if (data.code !== 200) console.log('提交失败');
-            else Alert.alert('添加', '添加成功');
-            const {goBack} = this.props.navigation;
-            goBack();
+            if (data.code !== 200) {
+              Alert.alert('添加', '添加失败');
+            } else {
+              Alert.alert('添加', '添加成功');
+              const {goBack} = this.props.navigation;
+              goBack();
+            }
           });
       })
       .catch(() => {
@@ -117,8 +121,6 @@ export default class SelfInfoScene extends Component {
   render() {
     this.token = this.props.route.params.token;
     this.facility_id = this.props.route.params.facility_id;
-    console.log(this.token);
-    console.log(this.facility_id);
     return (
       <View style={styles.container}>
         <this.Photo />
@@ -173,6 +175,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   input: {
+    padding: 0,
     width: 200,
     height: 40,
     fontSize: 20,

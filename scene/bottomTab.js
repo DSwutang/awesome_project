@@ -8,7 +8,9 @@ import PersonManagerScene from './personManagerScene';
 import SelfInfoScene from './selfInfo';
 import deviceTab from './deviceTab';
 import {Component, Text, Image} from 'react';
-import {Button, StyleSheet} from 'react-native';
+import {Button, StyleSheet, LogBox} from 'react-native';
+
+LogBox.ignoreAllLogs();
 
 const Tab = createBottomTabNavigator();
 const Stack_device = createStackNavigator();

@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Button,
+  RefreshControl,
 } from 'react-native';
 import {SwipeAction} from '@ant-design/react-native';
 
@@ -19,6 +20,7 @@ export default class DeviceRecord extends Component {
     this.deviceID = this.props.route.params.facility_id;
     this.state = {
       DATA: [],
+      isRefreshing: false,
     };
     this.getDATA();
   }
@@ -35,7 +37,7 @@ export default class DeviceRecord extends Component {
     )
       .then((response) => response.json())
       .then((_data) => {
-        this.setState({DATA: _data.commonuser});
+        this.setState({DATA: _data.commonuser, isRefreshing: false});
       })
       .catch(() => {
         console.log('连接失败');
@@ -102,7 +104,20 @@ export default class DeviceRecord extends Component {
       </View>
     </SwipeAction>
   );
+
+  _onRefresh() {
+    this.setState(
+      {
+        isRefreshing: true,
+      },
+      () => {
+        this.getDATA();
+      },
+    );
+  }
+
   render() {
+    const {isRefreshing} = this.state || {};
     const renderItem = ({item}) => <this.Item item={item} />;
     return (
       <SafeAreaView>
@@ -110,6 +125,17 @@ export default class DeviceRecord extends Component {
           data={this.state.DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.id_c.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              tintColor={'#fff'}
+              progressBackgroundColor={'#ffffff'}
+              onRefresh={() => {
+                this._onRefresh();
+              }}
+            />
+          }
         />
       </SafeAreaView>
     );
@@ -126,7 +152,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   button: {
-    height: 50,
+    height: 40,
     width: 280,
     justifyContent: 'center',
     alignItems: 'center',

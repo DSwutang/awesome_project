@@ -6,9 +6,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import deviceRecord from './deviceRecord';
 import devicePerson from './devicePerson';
 import {Component} from 'react';
+import {LogBox} from 'react-native';
 
 const deviceTab = createBottomTabNavigator();
-
+LogBox.ignoreAllLogs();
 export default class bottomTab extends Component {
   token = '';
   id = '';

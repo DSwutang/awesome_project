@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    backgroundColor: '#f9c2ff',
+    backgroundColor: '#66ffcc',
     height: 80,
     marginVertical: 8,
     marginHorizontal: 8,

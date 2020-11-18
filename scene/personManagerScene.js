@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Alert,
   Button,
+  RefreshControl,
 } from 'react-native';
 
 export default class PersonManagerScene extends Component {
@@ -17,6 +18,7 @@ export default class PersonManagerScene extends Component {
     this.token = this.props.route.params.token.route.params.token;
     this.state = {
       DATA: [],
+      isRefreshing: false,
     };
     this.getDATA();
   }
@@ -52,17 +54,29 @@ export default class PersonManagerScene extends Component {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.commonuser);
-        this.setState({DATA: data.commonuser});
+        this.setState({DATA: data.commonuser, isRefreshing: false});
       })
       .catch(() => {
         console.log('连接失败');
       });
   };
 
+  _onRefresh() {
+    console.log('>>下拉刷新>>');
+    this.setState(
+      {
+        isRefreshing: true,
+      },
+      () => {
+        this.getDATA();
+      },
+    );
+  }
+
   render() {
     //this.token = this.props.route.params.token;
     this.token = this.props.route.params.token.route.params.token;
-
+    const {isRefreshing} = this.state || {};
     const renderItem = ({item}) => <this.Item item={item} />;
     return (
       <SafeAreaView style={styles.container}>
@@ -70,8 +84,18 @@ export default class PersonManagerScene extends Component {
           data={this.state.DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.id_c.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              tintColor={'#fff'}
+              progressBackgroundColor={'#ffffff'}
+              onRefresh={() => {
+                this._onRefresh();
+              }}
+            />
+          }
         />
-        <Button onPress={this.refresh} title="刷新" />
       </SafeAreaView>
     );
   }
@@ -87,7 +111,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   button: {
-    height: 50,
+    height: 40,
     width: 280,
     justifyContent: 'center',
     alignItems: 'center',

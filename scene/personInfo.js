@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, FlatList} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  SafeAreaView,
+  Dimensions,
+} from 'react-native';
 
 export default class PersonInfo extends Component {
   constructor(props) {
@@ -41,25 +48,27 @@ export default class PersonInfo extends Component {
 
   Item = ({item}) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{item.commonuser_name}</Text>
-      <Text style={styles.content}>{item.datetime}</Text>
+      <Text style={styles.title}> {item.commonuser_name}</Text>
+      <Text style={styles.content}> {item.datetime}</Text>
     </View>
   );
 
   render() {
     const renderItem = ({item}) => <this.Item item={item} />;
     return (
-      <View style={styles.container}>
-        <Text>{this.info.name}</Text>
-        <Text>{this.info.gender}</Text>
-        <Text>{this.info.birth}</Text>
-        <Text>进出记录</Text>
+      <SafeAreaView style={styles.whole}>
+        {/* <View style={styles.container}> */}
+        <Text style={styles.name}>{this.info.name}</Text>
+        <Text style={styles.content}>性别： {this.info.gender}</Text>
+        <Text style={styles.content}>出生日期：{this.info.birth}</Text>
+        {/* </View> */}
+        <Text style={styles.divide}>进出记录</Text>
         <FlatList
           data={this.state.DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.commonuser_id.toString()}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -67,8 +76,34 @@ export default class PersonInfo extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  name: {
+    alignSelf: 'center',
+    marginTop: 20,
+    fontSize: 32,
+  },
+  content: {
+    fontSize: 20,
+  },
+  whole: {
+    height: Dimensions.get('window').height,
+    backgroundColor: '#ffffff',
+    flexDirection: 'column',
+  },
+  title: {
+    textAlignVertical: 'center',
+    fontSize: 28,
+  },
+  divide: {
+    marginTop: 20,
+  },
+  item: {
+    backgroundColor: '#33ff99',
+    height: 80,
+    marginVertical: 8,
+    marginHorizontal: 8,
   },
 });

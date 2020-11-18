@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     color: '#fff', //输入框输入的文本为白色
   },
   inputBox: {
+    padding: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     height: '10%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
+    backgroundColor: '#ff3366',
   },
   content: {
     fontFamily: 'customFont',
