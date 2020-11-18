@@ -64,7 +64,12 @@ export default class PersonInfo extends Component {
       <SafeAreaView style={styles.whole}>
         {/* <View style={styles.container}> */}
         <Text style={styles.name}>{this.info.name}</Text>
-        <Text style={styles.content}>性别： {this.info.gender}</Text>
+        {this.info.gender === 'M' ? (
+          <Text style={styles.content}>性别： 男</Text>
+        ) : (
+          <Text style={styles.content}>性别： 女</Text>
+        )}
+
         <Text style={styles.content}>出生日期：{this.info.birth}</Text>
         {/* </View> */}
         <FlatList
