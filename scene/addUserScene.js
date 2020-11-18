@@ -22,51 +22,16 @@ export default class SelfInfoScene extends Component {
   token = '';
   facility_id = '';
   data = '';
+  gender = '';
   photoYES = 0;
-
+  calenderText = '请选择出生日期';
   constructor(props) {
     super(props);
     this.state = {
       uri: '',
+      show: false,
     };
   }
-
-  // photo_pick() {
-  //   const options = {
-  //     title: '拍照选择器',
-  //     customButtons: [{name: 'fb', title: '自定义按钮标题'}],
-  //     storageOptions: {
-  //       skipBackup: true,
-  //       path: 'images',
-  //     },
-  //     cancelButtonTitle: '取消',
-  //     takePhotoButtonTitle: '点击拍照',
-  //     chooseFromLibraryButtonTitle: '从本地库相册导入',
-  //     chooseWhichLibraryTitle: '从其他库打开',
-  //     tintColor: '#CB0000',
-  //   };
-
-  //   ImagePicker.showImagePicker(options, (response) => {
-  //     console.log('Response = ', response);
-
-  //     if (response.didCancel) {
-  //       console.log('User cancelled image picker');
-  //     } else if (response.error) {
-  //       console.log('ImagePicker Error: ', response.error);
-  //     } else if (response.customButton) {
-  //       console.log('User tapped custom button: ', response.customButton);
-  //     } else {
-  //       const source = {uri: response.uri};
-
-  //       // You can also display the image using data:
-  //       // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-  //       this.photoYES = 1;
-  //       this.setState({
-  //         uri: source,
-  //       });
-  //     }
-  //   });
-  // }
 
   nameChanged = (newName) => {
     this.name = newName;
@@ -88,14 +53,7 @@ export default class SelfInfoScene extends Component {
       console.log(this.state.uri);
       return <Image source={this.state.uri} style={{width: 60, height: 60}} />;
     } else {
-      return (
-        <Image
-          source={{
-            uri:
-              'file:///storage/emulated/0/DCIM/Camera/IMG_20201028_125505_1.jpg',
-          }}
-        />
-      );
+      return <Image source={require('../icon/add.png')} />;
     }
   };
 
@@ -115,8 +73,8 @@ export default class SelfInfoScene extends Component {
               user_token: this.token,
               facility_id: this.facility_id,
               name: this.name,
-              gender: 'M',
-              birth: '2000-01-01',
+              gender: this.gender,
+              birth: this.birthday,
               image: this.data,
             }),
           },
@@ -130,6 +88,29 @@ export default class SelfInfoScene extends Component {
       .catch(() => {
         console.log('图片读取失败');
       });
+  };
+
+  selectGender = (index, value) => {
+    if (value === '女') {
+      this.gender = 'F';
+    } else if (value === '男') {
+      this.gender = 'M';
+    }
+  };
+
+  chooseDate = () => {
+    this.setState({show: true});
+  };
+
+  onChange = (event, date) => {
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDate();
+    this.calenderText =
+      year.toString() + '年' + month.toString() + '月' + day.toString() + '日';
+    this.birthday =
+      year.toString() + '-' + month.toString() + '-' + day.toString();
+    this.setState({show: false});
   };
 
   render() {
@@ -155,18 +136,26 @@ export default class SelfInfoScene extends Component {
           />
         </View>
         <ModalDropdown
-          options={['F', 'M']} //下拉内容数组
-        >
-          <Text> OK </Text>
-        </ModalDropdown>
-
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={new Date()}
-          mode="date"
-          is24Hour={true}
-          display="default"
+          options={['男', '女']} //下拉内容数组
+          style={styles.dropdown}
+          onSelect={this.selectGender}
+          dropdownStyle={[styles.dropdown, {height: 36 * 2}]}
+          defaultValue={'男'}
         />
+
+        <TouchableOpacity style={styles.inputBox} onPress={this.chooseDate}>
+          <Text>{this.calenderText}</Text>
+        </TouchableOpacity>
+        {this.state.show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={new Date()}
+            mode="date"
+            is24Hour={true}
+            display="default"
+            onChange={this.onChange}
+          />
+        )}
         <TouchableOpacity onPress={this.add} style={styles.button}>
           <Text>添加</Text>
         </TouchableOpacity>
@@ -187,6 +176,17 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 20,
     color: '#000', //输入框输入的文本为白色
+  },
+  dropdown: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 50,
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    marginBottom: 8,
+    marginTop: 20,
   },
   inputBox: {
     flexDirection: 'row',
