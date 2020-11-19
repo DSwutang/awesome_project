@@ -10,17 +10,22 @@ import {
   TextInput,
   Image,
   RefreshControl,
+  Button,
 } from 'react-native';
 
 export default class PersonManagerScene extends Component {
   token = '';
   textInput = '';
+  genderInput = '';
+  ageGreater = 0;
+  ageLesser = 0;
   constructor(props) {
     super(props);
     this.token = this.props.route.params.token.route.params.token;
     this.state = {
       DATA: [],
       isRefreshing: false,
+      showSenior: false,
     };
     this.getDATA();
   }
@@ -50,6 +55,11 @@ export default class PersonManagerScene extends Component {
   };
 
   getDATA = (refreshen = 0) => {
+    const cal_age = (birth) => {
+      let birth_age = parseInt(birth.substring(0, 4));
+      console.log(2020 - birth_age);
+      return 2020 - birth_age;
+    };
     fetch(
       'https://backend-vegeteam.app.secoder.net/api/mobile/admin/commonuser/all/',
       {
@@ -62,10 +72,27 @@ export default class PersonManagerScene extends Component {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.commonuser);
-        if (refreshen) {
+        if (refreshen === 1) {
           let data_output = [];
           for (var i = 0; i < data.number; i++) {
             if (data.commonuser[i].name.indexOf(this.textInput) !== -1) {
+              data_output.push(data.commonuser[i]);
+            }
+          }
+          this.setState({DATA: data_output, isRefreshing: false});
+        } else if (refreshen === 2) {
+          let data_output = [];
+          for (var i = 0; i < data.number; i++) {
+            if (
+              (this.textInput === '' ||
+                data.commonuser[i].name.indexOf(this.textInput) !== -1) &&
+              (this.genderInput === '' ||
+                data.commonuser[i].gender === this.genderInput) &&
+              (this.ageGreater === 0 ||
+                cal_age(data.commonuser[i].birth) >= this.ageGreater) &&
+              (this.ageLesser === 0 ||
+                cal_age(data.commonuser[i].birth) <= this.ageLesser)
+            ) {
               data_output.push(data.commonuser[i]);
             }
           }
@@ -95,11 +122,43 @@ export default class PersonManagerScene extends Component {
     this.textInput = newInput;
   };
 
+  changeGender = (newInput) => {
+    if (newInput === '男') this.genderInput = 'M';
+    else if (newInput === '女') this.genderInput = 'F';
+    else this.genderInput = '';
+  };
+
+  changeGreater = (newInput) => {
+    let tmpAge = parseInt(newInput, 10);
+    if (isNaN(tmpAge) === false) this.ageGreater = tmpAge;
+    else this.ageGreater = 0;
+  };
+
+  changeLesser = (newInput) => {
+    let tmpAge = parseInt(newInput, 10);
+    if (isNaN(tmpAge) === false) this.ageLesser = tmpAge;
+    else this.ageLesser = 0;
+  };
+
   refreshDATA = () => {
-    if (this.textInput === '') {
-      this.getDATA();
+    if (this.state.showSenior === false) {
+      if (this.textInput === '') {
+        this.getDATA();
+      } else {
+        this.getDATA(1);
+      }
     } else {
-      this.getDATA(1);
+      console.log('high');
+      this.getDATA(2);
+    }
+  };
+
+  showSenior = () => {
+    if (this.state.showSenior === false) {
+      console.log('showOK');
+      this.setState({showSenior: true});
+    } else {
+      this.setState({showSenior: false});
     }
   };
 
@@ -108,6 +167,7 @@ export default class PersonManagerScene extends Component {
     this.token = this.props.route.params.token.route.params.token;
     const {isRefreshing} = this.state || {};
     const renderItem = ({item}) => <this.Item item={item} />;
+    console.log(this.state.showSenior);
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.searchBox}>
@@ -125,7 +185,38 @@ export default class PersonManagerScene extends Component {
             placeholder={'搜索用户'}
             onChangeText={this.changeSearch}
           />
+          <Button title="高级" onPress={this.showSenior} />
         </View>
+        {this.state.showSenior && (
+          <View style={styles.searchBoxVer}>
+            <TextInput
+              style={styles.inputText}
+              autoCapitalize="none" //设置首字母不自动大写
+              underlineColorAndroid={'transparent'} //下划线颜色设置为透明
+              placeholderTextColor={'#aaa'} //设置占位符颜色
+              placeholder={'输入性别'}
+              onChangeText={this.changeGender}
+            />
+            <TextInput
+              style={styles.inputText}
+              autoCapitalize="none" //设置首字母不自动大写
+              underlineColorAndroid={'transparent'} //下划线颜色设置为透明
+              placeholderTextColor={'#aaa'} //设置占位符颜色
+              placeholder={'年龄大于？'}
+              keyboardType="numeric"
+              onChangeText={this.changeGreater}
+            />
+            <TextInput
+              style={styles.inputText}
+              autoCapitalize="none" //设置首字母不自动大写
+              underlineColorAndroid={'transparent'} //下划线颜色设置为透明
+              placeholderTextColor={'#aaa'} //设置占位符颜色
+              placeholder={'年龄小于？'}
+              keyboardType="numeric"
+              onChangeText={this.changeLesser}
+            />
+          </View>
+        )}
         <View ItemSeparatorComponent={this._separator} />
         <FlatList
           data={this.state.DATA}
@@ -184,6 +275,15 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginBottom: 5,
     flexDirection: 'row',
+    backgroundColor: '#E6E7E8',
+    borderRadius: 5,
+  },
+  searchBoxVer: {
+    flex: 0,
+    height: 110,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 5,
     backgroundColor: '#E6E7E8',
     borderRadius: 5,
   },
