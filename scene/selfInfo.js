@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff3366',
   },
   content: {
-    fontFamily: 'customFont',
     fontSize: 25,
   },
 });
