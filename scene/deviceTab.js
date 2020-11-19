@@ -26,6 +26,9 @@ export default class bottomTab extends Component {
           initialParams={{token: this.token, facility_id: this.id}}
           options={{
             title: '人员',
+            tabBarIcon: ({tintColor}) => (
+              <FontAwesome name={'user-o'} size={25} color={tintColor} />
+            ),
           }}
         />
         <deviceTab.Screen
@@ -34,6 +37,9 @@ export default class bottomTab extends Component {
           initialParams={{token: this.token, facility_id: this.id}}
           options={{
             title: '记录',
+            tabBarIcon: ({tintColor}) => (
+              <FontAwesome name={'file-text-o'} size={23} color={tintColor} />
+            ),
           }}
         />
       </deviceTab.Navigator>

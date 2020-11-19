@@ -34,8 +34,8 @@ function LoginFetch(username, password) {
 }
 
 export default class LoginScene extends Component {
-  username = 'wutang123'; //保存用户名
-  password = '1234567'; //保存密码
+  username = ''; //保存用户名
+  password = ''; //保存密码
   token = '';
 
   blurTextInput = () => {

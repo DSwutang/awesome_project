@@ -68,7 +68,11 @@ export default class RegisterScene extends Component {
    * 注册按钮，根据输入的内容判断注册是否成功
    */
   register = () => {
-    if (this.username !== '' && this.password !== '') {
+    if (
+      this.username !== '' &&
+      this.password !== '' &&
+      this.password.length >= 6
+    ) {
       if (this.password === this.confirmPassword) {
         RegisterFetch(this.username, this.password).then((val) => {
           if (val === 1) {
@@ -82,14 +86,14 @@ export default class RegisterScene extends Component {
               },
             ]); //给弹出的提示框添加事件
           } else {
-            Alert.alert('注册失败', '用户名及密码需长于6位or用户名重复！');
+            Alert.alert('注册失败', '用户名重复！');
           }
         });
       } else {
         Alert.alert('注册失败', '密码与确认密码不同');
       }
     } else {
-      Alert.alert('注册失败', '用户名或密码不能为空');
+      Alert.alert('注册失败', '用户名或密码不能为空，且密码长度不少于6位');
     }
   };
 
