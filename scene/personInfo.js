@@ -70,7 +70,7 @@ export default class PersonInfo extends Component {
           <Text style={styles.content}>性别： 女</Text>
         )}
 
-        <Text style={styles.content}>出生日期：{this.info.birth}</Text>
+        <Text style={styles.content}>出生年月：{this.info.birth}</Text>
         {/* </View> */}
         <FlatList
           data={this.state.DATA}

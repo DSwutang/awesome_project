@@ -23,7 +23,13 @@ export default class PersonManagerScene extends Component {
     this.getDATA();
   }
 
-  goIn = (item) => {};
+  goIn = (item) => {
+    const {navigate} = this.props.navigation;
+    navigate('pageStack', {
+      screen: 'simpleInfo',
+      params: {info: item, token: this.token},
+    });
+  };
 
   Item = ({item}) => (
     <View style={styles.item}>

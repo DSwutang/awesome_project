@@ -6,7 +6,7 @@ import {Component} from 'react';
 
 import deviceTab from './deviceTab';
 import personInfo from './personInfo';
-
+import simpleInfo from './simpleInfo';
 const ps = createStackNavigator();
 
 export default class pageStack extends Component {
@@ -23,6 +23,13 @@ export default class pageStack extends Component {
         <ps.Screen
           name="personInfo"
           component={personInfo}
+          options={{
+            headerTitle: '用户信息',
+          }}
+        />
+        <ps.Screen
+          name="simpleInfo"
+          component={simpleInfo}
           options={{
             headerTitle: '用户信息',
           }}
