@@ -14,8 +14,8 @@ export default class bottomTab extends Component {
   token = '';
   id = '';
   render() {
-    console.log('deviceTab');
-    console.log(this.props.route);
+    // console.log('deviceTab');
+    // console.log(this.props.route);
     this.token = this.props.route.params.token;
     this.id = this.props.route.params.facility_id;
     this.deviceName = this.props.route.params.fa_name;

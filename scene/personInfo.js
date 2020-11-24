@@ -6,6 +6,7 @@ import {
   FlatList,
   SafeAreaView,
   Dimensions,
+  Alert,
 } from 'react-native';
 
 export default class PersonInfo extends Component {
@@ -15,15 +16,15 @@ export default class PersonInfo extends Component {
     this.info = this.props.route.params.info;
     this.deviceID = this.props.route.params.facility_id;
     this.deviceName = this.props.route.params.fa_name;
-    console.log(this.props.route);
+    // console.log(this.props.route);
     this.state = {
       DATA: [],
     };
     this.getDATA();
   }
   getDATA = () => {
-    console.log(this.info);
-    console.log('debug');
+    // console.log(this.info);
+    // console.log('debug');
     fetch('https://backend-vegeteam.app.secoder.net/api/mobile/admin/access/', {
       method: 'POST',
       body: JSON.stringify({
@@ -44,7 +45,8 @@ export default class PersonInfo extends Component {
         this.setState({DATA: data_input});
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('获取信息', '连接异常');
       });
   };
 

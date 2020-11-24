@@ -60,10 +60,10 @@ export default class SelfInfoScene extends Component {
         this.data = content;
       })
       .then(() => {
-        console.log(this.token);
-        console.log(this.facility_id);
-        console.log(this.gender);
-        console.log(this.birthday);
+        // console.log(this.token);
+        // console.log(this.facility_id);
+        // console.log(this.gender);
+        // console.log(this.birthday);
         fetch(
           'https://backend-vegeteam.app.secoder.net/api/mobile/admin/add/',
           {
@@ -90,7 +90,8 @@ export default class SelfInfoScene extends Component {
           });
       })
       .catch(() => {
-        console.log('图片读取失败');
+        // console.log('');
+        Alert.alert('添加', '添加失败');
       });
   };
 

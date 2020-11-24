@@ -6,7 +6,7 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
-  StatusBar,
+  Alert,
   TextInput,
   Image,
   RefreshControl,
@@ -56,8 +56,8 @@ export default class PersonManagerScene extends Component {
 
   getDATA = (refreshen = 0) => {
     const cal_age = (birth) => {
-      let birth_age = parseInt(birth.substring(0, 4));
-      console.log(2020 - birth_age);
+      let birth_age = parseInt(birth.substring(0, 4), 10);
+      // console.log(2020 - birth_age);
       return 2020 - birth_age;
     };
     fetch(
@@ -71,7 +71,7 @@ export default class PersonManagerScene extends Component {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.commonuser);
+        // console.log(data.commonuser);
         if (refreshen === 1) {
           let data_output = [];
           for (var i = 0; i < data.number; i++) {
@@ -102,7 +102,8 @@ export default class PersonManagerScene extends Component {
         }
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('搜索', '连接异常');
       });
   };
 
@@ -148,14 +149,12 @@ export default class PersonManagerScene extends Component {
         this.getDATA(1);
       }
     } else {
-      console.log('high');
       this.getDATA(2);
     }
   };
 
   showSenior = () => {
     if (this.state.showSenior === false) {
-      console.log('showOK');
       this.setState({showSenior: true});
     } else {
       this.setState({showSenior: false});
@@ -167,7 +166,7 @@ export default class PersonManagerScene extends Component {
     this.token = this.props.route.params.token.route.params.token;
     const {isRefreshing} = this.state || {};
     const renderItem = ({item}) => <this.Item item={item} />;
-    console.log(this.state.showSenior);
+    // console.log(this.state.showSenior);
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.searchBox}>

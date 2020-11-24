@@ -6,6 +6,7 @@ import {
   Button,
   TouchableHighlight,
   Dimensions,
+  Alert,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
@@ -23,13 +24,14 @@ export default class PhotoScene extends Component {
     this.refs.camera
       .takePictureAsync()
       .then((response) => {
-        console.log('response:' + response);
-        console.log('response.uri:' + response.uri);
+        // console.log('response:' + response);
+        // console.log('response.uri:' + response.uri);
         this.uri = response.uri;
         this.back();
       })
       .catch((error) => {
-        console.log('error:' + error);
+        // console.log('camera error:' + error);
+        Alert.alert('拍照', '拍照异常，请重试');
       });
   }
 

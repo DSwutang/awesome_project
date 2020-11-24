@@ -19,8 +19,8 @@ export default class DeviceRecord extends Component {
     this.token = this.props.route.params.token;
     this.deviceID = this.props.route.params.facility_id;
     this.deviceName = this.props.route.params.fa_name;
-    console.log('设备人员管理：');
-    console.log(this.props.route.params);
+    // console.log('设备人员管理：');
+    // console.log(this.props.route.params);
     this.state = {
       DATA: [],
       isRefreshing: false,
@@ -43,14 +43,15 @@ export default class DeviceRecord extends Component {
         this.setState({DATA: _data.commonuser, isRefreshing: false});
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('获取信息', '连接异常');
       });
   };
 
   del = (item) => {
-    console.log(this.token);
-    console.log(this.deviceID);
-    console.log(item);
+    // console.log(this.token);
+    // console.log(this.deviceID);
+    // console.log(item);
     fetch('https://backend-vegeteam.app.secoder.net/api/mobile/admin/delete/', {
       method: 'POST',
       body: JSON.stringify({
@@ -61,7 +62,7 @@ export default class DeviceRecord extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.code === 200) {
           Alert.alert('解绑人员', '解绑成功');
         } else {
@@ -70,7 +71,8 @@ export default class DeviceRecord extends Component {
         this.getDATA();
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('删除', '连接异常');
       });
   };
 

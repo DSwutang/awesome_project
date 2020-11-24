@@ -15,8 +15,8 @@ import {
 export default class DeviceRecord extends Component {
   constructor(props) {
     super(props);
-    console.log('record');
-    console.log(this.props.route.params);
+    // console.log('record');
+    // console.log(this.props.route.params);
     this.token = this.props.route.params.token;
     this.deviceID = this.props.route.params.facility_id;
     this.deviceName = this.props.route.params.fa_name;
@@ -27,8 +27,8 @@ export default class DeviceRecord extends Component {
     this.getDATA();
   }
   getDATA = () => {
-    console.log(this.token);
-    console.log(this.deviceID);
+    // console.log(this.token);
+    // console.log(this.deviceID);
     fetch(
       'https://backend-vegeteam.app.secoder.net/api/mobile/admin/access/all/',
       {
@@ -41,11 +41,12 @@ export default class DeviceRecord extends Component {
     )
       .then((response) => response.json())
       .then((_data) => {
-        console.log(_data.data);
+        // console.log(_data.data);
         this.setState({DATA: _data.data, isRefreshing: false});
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('获取信息', '连接异常');
       });
   };
   Item = ({item}) => (

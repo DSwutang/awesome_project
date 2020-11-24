@@ -50,7 +50,8 @@ export default class DeviceManagerScene extends Component {
         this.setState({DATA: data.facility});
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('获取信息', '连接异常');
       });
   };
 
@@ -75,7 +76,8 @@ export default class DeviceManagerScene extends Component {
         this.getDATA();
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('删除设备', '连接异常');
       });
   };
 
@@ -138,8 +140,8 @@ export default class DeviceManagerScene extends Component {
   );
 
   bind = () => {
-    console.log(this.token);
-    console.log(this.input_id);
+    // console.log(this.token);
+    // console.log(this.input_id);
     fetch(
       'https://backend-vegeteam.app.secoder.net/api/mobile/admin/bindfacility/',
       {
@@ -153,16 +155,17 @@ export default class DeviceManagerScene extends Component {
       .then((response) => response.json())
       .then((data) => {
         if (data.code === 200) {
-          console.log('绑定成功');
+          // console.log('绑定成功');
           Alert.alert('绑定', '成功绑定' + this.input_id + '号设备');
         } else {
-          console.log('绑定失败');
+          // console.log('绑定失败');
           Alert.alert('绑定', '绑定失败');
         }
         this.getDATA();
       })
       .catch(() => {
-        console.log('连接失败');
+        // console.log('连接失败');
+        Alert.alert('绑定', '连接异常');
       });
   };
 
@@ -181,8 +184,8 @@ export default class DeviceManagerScene extends Component {
   };
 
   render() {
-    //console.log(this.props.route);
-    console.log(this.token);
+    // console.log(this.props.route);
+    // console.log(this.token);
 
     const renderItem = ({item}) => (
       <this.Item name={item.location} id={item.id_f} />
