@@ -14,6 +14,8 @@ export default class PersonInfo extends Component {
     this.token = this.props.route.params.token;
     this.info = this.props.route.params.info;
     this.deviceID = this.props.route.params.facility_id;
+    this.deviceName = this.props.route.params.fa_name;
+    console.log(this.props.route);
     this.state = {
       DATA: [],
     };
@@ -53,7 +55,7 @@ export default class PersonInfo extends Component {
         <Text style={styles.content}> {item.datetime}</Text>
       </View>
       <View style={styles.item_right}>
-        <Text style={styles.title}> {this.deviceID}</Text>
+        <Text style={styles.device_title}> {this.deviceName}</Text>
       </View>
     </View>
   );
@@ -106,6 +108,10 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     fontSize: 28,
   },
+  device_title: {
+    textAlignVertical: 'center',
+    fontSize: 20,
+  },
   divide: {
     marginTop: 20,
   },
@@ -117,12 +123,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   item_left: {
-    width: '70%',
+    width: '60%',
     flexDirection: 'column',
     alignItems: 'center',
   },
   item_right: {
-    width: '30%',
+    width: '40%',
     justifyContent: 'center',
     alignItems: 'center',
   },

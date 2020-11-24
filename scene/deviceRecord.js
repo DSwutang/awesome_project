@@ -19,6 +19,7 @@ export default class DeviceRecord extends Component {
     console.log(this.props.route.params);
     this.token = this.props.route.params.token;
     this.deviceID = this.props.route.params.facility_id;
+    this.deviceName = this.props.route.params.fa_name;
     this.state = {
       DATA: [],
       isRefreshing: false,
@@ -54,7 +55,7 @@ export default class DeviceRecord extends Component {
         <Text style={styles.content}> {item.datetime}</Text>
       </View>
       <View style={styles.item_right}>
-        <Text style={styles.title}> {this.deviceID}</Text>
+        <Text style={styles.device_title}> {this.deviceName}</Text>
       </View>
     </View>
   );
@@ -120,18 +121,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   item_left: {
-    width: '70%',
+    width: '60%',
     flexDirection: 'column',
     alignItems: 'center',
   },
   item_right: {
-    width: '30%',
+    width: '40%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     textAlignVertical: 'center',
     fontSize: 32,
+  },
+  device_title: {
+    textAlignVertical: 'center',
+    fontSize: 20,
   },
   content: {
     fontSize: 20,

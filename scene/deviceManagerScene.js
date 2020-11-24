@@ -84,11 +84,11 @@ export default class DeviceManagerScene extends Component {
     navigate('AddUser', {token: this.token, facility_id: deviceID});
   };
 
-  openInfo = (deviceID) => {
+  openInfo = (deviceID, name) => {
     const {navigate} = this.props.navigation;
     navigate('pageStack', {
       screen: 'deviceTab',
-      params: {token: this.token, facility_id: deviceID},
+      params: {token: this.token, facility_id: deviceID, fa_name: name},
     });
   };
 
@@ -109,7 +109,7 @@ export default class DeviceManagerScene extends Component {
       <View style={styles.item}>
         <TouchableOpacity
           onPress={() => {
-            this.openInfo(id);
+            this.openInfo(id, name);
           }}
           style={styles.container}>
           <Text style={styles.title}>{name}</Text>

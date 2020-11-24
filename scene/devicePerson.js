@@ -18,6 +18,9 @@ export default class DeviceRecord extends Component {
     super(props);
     this.token = this.props.route.params.token;
     this.deviceID = this.props.route.params.facility_id;
+    this.deviceName = this.props.route.params.fa_name;
+    console.log('设备人员管理：');
+    console.log(this.props.route.params);
     this.state = {
       DATA: [],
       isRefreshing: false,
@@ -75,7 +78,12 @@ export default class DeviceRecord extends Component {
     const {navigate} = this.props.navigation;
     navigate('pageStack', {
       screen: 'personInfo',
-      params: {info: item, facility_id: this.deviceID, token: this.token},
+      params: {
+        info: item,
+        facility_id: this.deviceID,
+        token: this.token,
+        fa_name: this.deviceName,
+      },
     });
   };
 
