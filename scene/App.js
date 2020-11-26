@@ -7,12 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScene from './bottomTab';
 import LoginScene from './loginScene';
 import RegisterScene from './registerScene';
-import AddUserScene from './addUserScene';
-import PhotoScene from './photoScene';
-import QRphoto from './QRphoto';
 import pageStack from './pageStack';
-import deviceScene from './deviceManagerScene';
-import personScene from './personManagerScene';
 
 const Stack = createStackNavigator();
 
@@ -30,10 +25,7 @@ function SimpleApp() {
           //initialParams={{header: null}}
         />
         <Stack.Screen name="Register" component={RegisterScene} />
-        <Stack.Screen name="AddUser" component={AddUserScene} />
         <Stack.Screen name="pageStack" component={pageStack} />
-        <Stack.Screen name="photo" component={PhotoScene} />
-        <Stack.Screen name="QR" component={QRphoto} />
       </Stack.Navigator>
     </NavigationContainer>
   );

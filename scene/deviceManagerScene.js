@@ -84,6 +84,10 @@ export default class DeviceManagerScene extends Component {
   addUser = (deviceID) => {
     const {navigate} = this.props.navigation;
     navigate('AddUser', {token: this.token, facility_id: deviceID});
+    navigate('pageStack', {
+      screen: 'AddUser',
+      params: {token: this.token, facility_id: deviceID},
+    });
   };
 
   openInfo = (deviceID, name) => {
@@ -176,7 +180,13 @@ export default class DeviceManagerScene extends Component {
 
   addDevice = () => {
     const {navigate} = this.props.navigation; //获取navigation的navigate方法
-    navigate('QR', {onID: this.onID});
+    // navigate('QR', {});
+    navigate('pageStack', {
+      screen: 'QR',
+      params: {
+        onID: this.onID,
+      },
+    });
   };
 
   refresh = () => {

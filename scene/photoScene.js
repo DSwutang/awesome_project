@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '30%',
     margin: '10%',
-    marginTop: Dimensions.get('window').height * 0.85,
+    marginTop: Dimensions.get('window').height * 0.78,
     marginLeft: '35%',
     height: Dimensions.get('window').height * 0.08,
     alignItems: 'center',

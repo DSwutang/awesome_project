@@ -15,8 +15,8 @@ export default class PhotoScene extends Component {
     //For Android use `{ width: number, height: number, origin: Array<Point<string>> }`
     if (this.done === 0) {
       this.done = 1;
-      console.log(e);
-      console.log(e.data);
+      // console.log(e);
+      // console.log(e.data);
       const {navigation} = this.props; //获取navigation的goBack方法
       this.props.route.params.onID(e.data);
       navigation.goBack();

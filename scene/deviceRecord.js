@@ -26,6 +26,17 @@ export default class DeviceRecord extends Component {
     };
     this.getDATA();
   }
+  decodeDate = (date_str) => {
+    const date = new Date(date_str.replace(/-/g, '/') + ' UTC');
+    let da = '';
+    da += date.getFullYear() + '-';
+    da += date.getMonth() + '-';
+    da += date.getDate() + ' ';
+    da += date.getHours() + ':';
+    da += date.getMinutes() + ':';
+    da += date.getSeconds();
+    return da;
+  };
   getDATA = () => {
     // console.log(this.token);
     // console.log(this.deviceID);
@@ -53,7 +64,7 @@ export default class DeviceRecord extends Component {
     <View style={styles.item}>
       <View style={styles.item_left}>
         <Text style={styles.title}> {item.commonuser_name}</Text>
-        <Text style={styles.content}> {item.datetime}</Text>
+        <Text style={styles.content}> {this.decodeDate(item.datetime)}</Text>
       </View>
       <View style={styles.item_right}>
         <Text style={styles.device_title}> {this.deviceName}</Text>
