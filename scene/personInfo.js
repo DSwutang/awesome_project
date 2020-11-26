@@ -7,8 +7,8 @@ import {
   SafeAreaView,
   Dimensions,
   Alert,
+  RefreshControl,
 } from 'react-native';
-
 export default class PersonInfo extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +19,7 @@ export default class PersonInfo extends Component {
     // console.log(this.props.route);
     this.state = {
       DATA: [],
+      isRefreshing: false,
     };
     this.getDATA();
   }
@@ -53,7 +54,7 @@ export default class PersonInfo extends Component {
             data_input.push(data_all[i]);
           }
         }
-        this.setState({DATA: data_input});
+        this.setState({DATA: data_input, isRefreshing: false});
       })
       .catch(() => {
         // console.log('连接失败');
@@ -72,8 +73,18 @@ export default class PersonInfo extends Component {
       </View>
     </View>
   );
-
+  _onRefresh() {
+    this.setState(
+      {
+        isRefreshing: true,
+      },
+      () => {
+        this.getDATA();
+      },
+    );
+  }
   render() {
+    const {isRefreshing} = this.state || {};
     const renderItem = ({item}) => <this.Item item={item} />;
     return (
       <SafeAreaView style={styles.whole}>
@@ -91,6 +102,17 @@ export default class PersonInfo extends Component {
           data={this.state.DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.commonuser_id.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              tintColor={'#fff'}
+              progressBackgroundColor={'#ffffff'}
+              onRefresh={() => {
+                this._onRefresh();
+              }}
+            />
+          }
         />
       </SafeAreaView>
     );
